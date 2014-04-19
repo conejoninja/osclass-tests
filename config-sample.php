@@ -1,5 +1,6 @@
 <?php
 
+define('TEST_SERVER_PATH', dirname(dirname(__FILE__)) . '/Osclass/');
 define('TEST_SERVER_URL', 'http://localhost/Osclass/');
 
 define('TEST_DB_HOST', 'localhost');

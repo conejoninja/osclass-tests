@@ -1,7 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/OsclassTest.php';
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/oc-load.php';
+require_once TEST_SERVER_PATH . '/oc-load.php';
 
 class OsclassTestFrontend extends OsclassTest
 {
@@ -31,15 +31,14 @@ class OsclassTestFrontend extends OsclassTest
 
     protected  function _insertItem($parentCat, $cat, $title, $description, $price, $regionId, $cityId, $cityArea, $aPhotos, $user, $email , $logged = 0)
     {
+
         $this->open( osc_base_url() );
-
         $this->click("link=Publish your ad for free");
-        $this->waitForPageToLoad("10000");
-
-        $this->select("catId", "label=regexp:\\s*$cat");
+        $this->waitForPageToLoad("30000");
+        $this->select("id=catId", "label=regexp:\\s*".$cat);
         sleep(2);
-        $this->type("title[en_US]", $title);
-        $this->type("description[en_US]", $description);
+        $this->type("titleen_US", $title);
+        $this->type("descriptionen_US", $description);
         $this->type("price", "12".osc_locale_thousands_sep()."34".osc_locale_thousands_sep()."56".osc_locale_dec_point()."78".osc_locale_dec_point()."90");
         $this->fireEvent("price", "blur");
         sleep(2);
@@ -71,7 +70,7 @@ class OsclassTestFrontend extends OsclassTest
         $this->type("contactEmail", $email);
 
         $this->click("//button[text()='Publish']");
-        $this->waitForPageToLoad("10000");
+        $this->waitForPageToLoad("30000");
     }
 
 

@@ -1,7 +1,7 @@
 <?php
 
-define('TEST_ABS_PATH', dirname(__FILE__) . '/');
-require_once TEST_ABS_PATH . '/config.php';
+require_once dirname(dirname(__FILE__)) . '/config.php';
+define('TEST_ASSETS_PATH', dirname(__FILE__) . '/assets/');
 
 class OsclassTest extends PHPUnit_Extensions_SeleniumTestCase
 {
