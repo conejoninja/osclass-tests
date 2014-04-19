@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit>
+
+    <testsuites>
+
+        <testsuite name="all">
+            <directory>installer/test-installer.php</directory>
+
+            <directory>frontend/test-user.php</directory>
+            <directory>frontend/test-contact.php</directory>
+            <directory>frontend/test-page.php</directory>
+
+        </testsuite>
+
+        <testsuite name="installer">
+            <directory>installer/test-installer.php</directory>
+        </testsuite>
+
+        <testsuite name="frontend">
+            <directory>frontend/test-user.php</directory>
+            <directory>frontend/test-contact.php</directory>
+            <directory>frontend/test-page.php</directory>
+        </testsuite>
+
+        <testsuite name="items">
+            <directory>frontend/test-items.php</directory>
+        </testsuite>
+
+    </testsuites>
+
+</phpunit>
