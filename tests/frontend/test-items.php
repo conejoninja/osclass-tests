@@ -215,10 +215,9 @@ class TestItems extends OsclassTestFrontend
         $this->assertTrue($this->isTextPresent("Your listing has been deleted"), "Delete item.");
     }
 
-    /*
-    function testActivate() // Activate
+    function testActivate()
     {
-        $this->loginWith();
+        $this->_login();
 
         $this->open( osc_base_url() );
         $this->click("link=My account");
@@ -232,21 +231,27 @@ class TestItems extends OsclassTestFrontend
 
     function testActivate1()
     {
-        $uSettings = new utilSettings();
-        $old_enabled_users              = $uSettings->set_enabled_users(1);
-        $old_enabled_users_registration = $uSettings->set_enabled_user_registration(1);
-        $old_enabled_user_validation    = $uSettings->set_enabled_user_validation(0);
 
-        $this->doRegisterUser();
-//        $uSettings->set_logged_user_item_validation( $old_logged_user_item_validation );
-        $uSettings->set_enabled_users($old_enabled_users);
-        $uSettings->set_enabled_user_registration($old_enabled_users_registration);
-        $uSettings->set_enabled_user_validation($old_enabled_user_validation);
+        include TEST_ASSETS_PATH . 'ItemData.php';
+        $item = $aData[0];
+        osc_set_preference('items_wait_time', 0);
+        osc_set_preference('selectable_parent_categories', 1);
+        osc_set_preference('reg_user_post', 0);
+        osc_set_preference('moderate_items', 111);
+        osc_set_preference('logged_user_item_validation', 0);
+        osc_reset_preferences();
 
-        $itemId = $this->_insertItemToValidate();
+        $this->_insertItem($item['parentCatId'], $item['catId'], $item['title'],
+            $item['description'], $item['price'],
+            $item['regionId'], $item['cityId'], $item['cityArea'],
+            $item['photo'], 'contact name', 'validate@example.com');
 
-        // 1
-        $this->loginWith();
+        $itemId = $this->_lastItemId();
+        $this->assertTrue($this->isTextPresent("Check your inbox to validate your listing"),"Items, insert item, no user, with validation.") ;
+
+
+        $this->_login();
+
         $url = osc_item_activate_url('', $itemId);
         $this->open($url);
         sleep(1);
@@ -254,7 +259,7 @@ class TestItems extends OsclassTestFrontend
         $count = $this->getXpathCount("//body[contains(@class,'not-found')]");
         $this->assertTrue($count == 1 , "Items, validate item from other user.");
         // 2
-        $this->logout();
+        $this->_logout();
         $url = osc_item_activate_url('', $itemId);
         $this->open($url);
         sleep(1);
@@ -277,12 +282,10 @@ class TestItems extends OsclassTestFrontend
 
     function testEditItem()
     {
-        $this->loginWith();
+        $this->_login();
 
-        sleep(5);
-
-        $uSettings = new utilSettings();
-        $old_moderate_items = $uSettings->set_moderate_items(0);
+        osc_set_preference('moderate_items', 0);
+        osc_reset_preferences();
 
         $this->open( osc_base_url() );
         $this->click("link=My account");
@@ -298,9 +301,7 @@ class TestItems extends OsclassTestFrontend
         $this->type("price", "222");
         $this->select("currency", "label=Euro €");
         $this->type('id=region', 'Barcelona');
-        $this->click('id=ui-active-menuitem');
         $this->type('id=city', 'Sabadell');
-        $this->click('id=ui-active-menuitem');
         $this->type("cityArea", "New my area");
         $this->type("address", "New my address");
         $this->click("xpath=//button[@type='submit']");
@@ -308,7 +309,8 @@ class TestItems extends OsclassTestFrontend
 
         $this->assertTrue(  $this->isTextPresent("Great! We've just updated your listing"), 'Items, edit first item, with validation.' );
 
-        $old_moderate_items = $uSettings->set_moderate_items(-1);
+        osc_set_preference('moderate_items', -1);
+        osc_reset_preferences();
         $this->open( osc_base_url(true) );
         $this->click("link=My account");
         $this->waitForPageToLoad("30000");
@@ -316,16 +318,14 @@ class TestItems extends OsclassTestFrontend
         $this->click("xpath=//span[@class='admin-options']/a[text()='Edit item']");
         $this->waitForPageToLoad("30000");
 
-        $this->select("select_2", "label=regexp:\\s*Car Parts");
+        $this->select("catId", "label=regexp:\\s*Car Parts");
 
         $this->type("title[en_US]", "New title new item NEW ");
         $this->type("description[en_US]", "New description new item new item new item NEW ");
         $this->type("price", "666");
         $this->select("currency", "label=Euro €");
         $this->type('id=region', 'Barcelona');
-        $this->click('id=ui-active-menuitem');
         $this->type('id=city', 'Sabadell');
-        $this->click('id=ui-active-menuitem');
         $this->type("cityArea", "New my area");
         $this->type("address", "New my address");
         $this->click("//button[@type='submit']");
@@ -333,14 +333,11 @@ class TestItems extends OsclassTestFrontend
 
         $this->assertTrue( $this->isTextPresent("Great! We've just updated your listing") ,"Items, edit first item, without validation." );
 
-        $uSettings->set_moderate_items($old_moderate_items);
-
-        unset($uSettings);
     }
 
     function testDeleteItemOtherUser()
     {
-        $this->logout();
+        //$this->_logout();
         $itemId = $this->_lastItemId();
         $url = osc_item_delete_url('', $itemId);
 
@@ -350,7 +347,7 @@ class TestItems extends OsclassTestFrontend
 
     function testDeleteItem()
     {
-        $this->loginWith();
+        $this->_login();
 
         $this->open( osc_base_url() );
         $this->click("link=My account");
@@ -361,6 +358,7 @@ class TestItems extends OsclassTestFrontend
         while($numItems > 0) {
             // delete first item
             $this->click("xpath=//span[@class='admin-options']/a[text()='Delete']");
+            $this->assertTrue((bool)preg_match('/^This action can not be undone\. Are you sure you want to continue[\s\S]$/',$this->getConfirmation()));
             $this->waitForPageToLoad("30000");
             $this->assertTrue($this->isTextPresent("Your listing has been deleted"), "Can't delete listing. ERROR ");
 
@@ -373,50 +371,8 @@ class TestItems extends OsclassTestFrontend
             $this->click("link=My account");
             $this->waitForPageToLoad("30000");
         }
-        $this->removeUserByMail();
-    }
-
-    function _insertItemToValidate()
-    {
-        $this->logout();
-        include TEST_ASSETS_PATH . 'ItemData.php';
-        $item = $aData[3];
-
-        $uSettings = new utilSettings();
-        $items_wait_time                  = $uSettings->set_items_wait_time(0);
-        $set_selectable_parent_categories = $uSettings->set_selectable_parent_categories(1);
-        $bool_reg_user_post               = $uSettings->set_reg_user_post(0);
-        $bool_enabled_user_validation     = $uSettings->set_moderate_items(2);
-
-        $old_logged_user_item_validation = $uSettings->set_logged_user_item_validation(1);
-        $this->_insertItem($item['parentCatId'], $item['catId'], $item['title'],
-            $item['description'], $item['price'],
-            $item['regionId'], $item['cityId'], $item['cityArea'],
-            $item['photo'], $item['contactName'],
-            'test@force.com');
-        sleep(1);
-        $this->assertTrue($this->isTextPresent("Check your inbox to validate your listing"),"Items, insert item, no user, with validation.") ;
-
-        $uSettings->set_items_wait_time($items_wait_time);
-        $uSettings->set_selectable_parent_categories($set_selectable_parent_categories);
-        $uSettings->set_reg_user_post($bool_reg_user_post);
-        $uSettings->set_moderate_items($bool_enabled_user_validation);
-
-        return $this->_lastItemId();
-    }
-                 */
-
-
-    function testClean() {
-        $aItem = Item::newInstance()->listAll('s_contact_email = ' . TEST_USER_EMAIL . ' AND fk_i_user IS NULL');
-        foreach($aItem as $item){
-            $url = osc_item_delete_url( $item['s_secret'] , $item['pk_i_id'] );
-            $this->open( $url );
-            $this->assertTrue($this->isTextPresent("Your listing has been deleted"), "Delete item.");
-        }
         $this->_removeUserByEmail(TEST_USER_EMAIL);
     }
-
 
 
 }
