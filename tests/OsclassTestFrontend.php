@@ -12,6 +12,23 @@ class OsclassTestFrontend extends OsclassTest
         $this->_mUser = User::newInstance();
     }
 
+    protected function _userRegistration($email = TEST_USER_EMAIL, $pass = TEST_USER_PASS, $name = 'Test')
+    {
+        osc_set_preference('enabled_users', true);
+        osc_set_preference('enabled_user_registration', true);
+        osc_set_preference('enabled_user_validation', false);
+
+        $this->open(osc_base_url());
+        $this->click("link=Register for a free account");
+        $this->waitForPageToLoad("30000");
+        $this->type("id=s_name", $name);
+        $this->type("id=s_email", $email);
+        $this->type("id=s_password", $pass);
+        $this->type("id=s_password2", $pass);
+        $this->click("//button[@type='submit']");
+        $this->waitForPageToLoad("30000");
+    }
+
     protected function _login($email = TEST_USER_EMAIL, $pass = TEST_USER_PASS)
     {
         $this->open(osc_user_login_url());
@@ -23,13 +40,20 @@ class OsclassTestFrontend extends OsclassTest
         $this->waitForPageToLoad("30000");
     }
 
+    protected function _logout()
+    {
+        $this->open(osc_user_login_url());
+        $this->click("link=Logout");
+        $this->waitForPageToLoad("30000");
+    }
+
     protected function _removeUserByEmail($email)
     {
         $user = $this->_mUser->findByEmail($email);
         $this->_mUser->deleteByPrimaryKey($user['pk_i_id']);
     }
 
-    protected  function _insertItem($parentCat, $cat, $title, $description, $price, $regionId, $cityId, $cityArea, $aPhotos, $user, $email , $logged = 0)
+    protected  function _insertItem($parentCat, $cat, $title, $description, $price, $regionId, $cityId, $cityArea, $aPhotos, $user = null, $email = null , $logged = 0)
     {
 
         $this->open( osc_base_url() );
@@ -66,8 +90,12 @@ class OsclassTestFrontend extends OsclassTest
             }
         }
 
-        $this->type("contactName" , $user);
-        $this->type("contactEmail", $email);
+        if($user!==null) {
+            $this->type("contactName" , $user);
+        }
+        if($email!==null) {
+            $this->type("contactEmail", $email);
+        }
 
         $this->click("//button[text()='Publish']");
         $this->waitForPageToLoad("30000");

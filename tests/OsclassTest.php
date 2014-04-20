@@ -11,11 +11,20 @@ class OsclassTest extends PHPUnit_Extensions_SeleniumTestCase
     protected $screenshotUrl = TEST_IMAGE_URL;
 
 
-  protected function setUp()
-  {
-    $this->setBrowser("*chrome");
-    $this->setBrowserUrl(TEST_SERVER_URL);
-  }
+    protected function setUp()
+    {
+        $this->setBrowser("*chrome");
+        $this->setBrowserUrl(TEST_SERVER_URL);
+    }
+
+    protected function _lastItemId()
+    {
+        // get last id from t_item.
+        $item   = Item::newInstance()->dao->query('select pk_i_id from '.DB_TABLE_PREFIX.'t_item order by pk_i_id DESC limit 0,1');
+        $aItem  = $item->result();
+        return $aItem[0]['pk_i_id'];
+    }
+
 
 
 }

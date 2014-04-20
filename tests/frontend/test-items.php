@@ -47,119 +47,76 @@ class TestItems extends OsclassTestFrontend
 
     function testItems_useExistingEmail()
     {
+        include TEST_ASSETS_PATH . 'ItemData.php';
+        $item = $aData[0];
+
+        $this->_userRegistration();
+
+        osc_set_preference('logged_user_item_validation', 1);
+
+        $this->_insertItem($item['parentCatId'], $item['catId'], $item['title'],
+            $item['description'], $item['price'],
+            $item['regionId'], $item['cityId'], $item['cityArea'],
+            $item['photo']);
+        $this->assertTrue($this->isTextPresent("Your listing has been published"),"insert ad error ") ;
+
+        $this->_logout();
+
+        $item = $aData[2];
+
 
         osc_set_preference('items_wait_time', 0);
         osc_set_preference('selectable_parent_categories', 1);
         osc_set_preference('reg_user_post', 0);
         osc_set_preference('moderate_items', -1);
-
-        include TEST_ASSETS_PATH . 'ItemData.php';
-        $item = $aData[0];
-
-        $uSettings = new utilSettings();
-        $old_enabled_users              = $uSettings->set_enabled_users(1);
-        $old_enabled_users_registration = $uSettings->set_enabled_user_registration(1);
-        $old_enabled_user_validation    = $uSettings->set_enabled_user_validation(0);
-
-        $this->doRegisterUser();
-        $this->loginWith();
-
-        $old_logged_user_item_validation = $uSettings->set_logged_user_item_validation(1);
-        $this->insertItem($item['parentCatId'], $item['catId'], $item['title'],
+        //osc_set_preference('logged_user_item_validation', 1);
+        
+        $this->_insertItem($item['parentCatId'], $item['catId'], $item['title'],
             $item['description'], $item['price'],
             $item['regionId'], $item['cityId'], $item['cityArea'],
             $item['photo'], $item['contactName'],
-            $this->_email);
-        $this->assertTrue($this->selenium->isTextPresent("Your listing has been published"),"insert ad error ") ;
-
-        $uSettings->set_logged_user_item_validation( $old_logged_user_item_validation );
-        $uSettings->set_enabled_users($old_enabled_users);
-        $uSettings->set_enabled_user_registration($old_enabled_users_registration);
-        $uSettings->set_enabled_user_validation($old_enabled_user_validation);
-
-        // try to insert an item with existing user email
-        $this->logout();
-
-        $item = $aData[2];
-
-        $uSettings = new utilSettings();
-        $items_wait_time                  = $uSettings->set_items_wait_time(0);
-        $set_selectable_parent_categories = $uSettings->set_selectable_parent_categories(1);
-        $bool_reg_user_post               = $uSettings->set_reg_user_post(0);
-        $bool_enabled_user_validation     = $uSettings->set_moderate_items(-1);
-
-        $old_logged_user_item_validation = $uSettings->set_logged_user_item_validation(1);
-        $this->insertItem($item['parentCatId'], $item['catId'], $item['title'],
-            $item['description'], $item['price'],
-            $item['regionId'], $item['cityId'], $item['cityArea'],
-            $item['photo'], $item['contactName'],
-            $this->_email);
+            TEST_USER_EMAIL);
         sleep(1);
-        $this->assertTrue($this->selenium->isTextPresent("A user with that email address already exists, if it is you, please log in"));
+        $this->assertTrue($this->isTextPresent("A user with that email address already exists, if it is you, please log in"));
 
-        $uSettings->set_items_wait_time($items_wait_time);
-        $uSettings->set_selectable_parent_categories($set_selectable_parent_categories);
-        $uSettings->set_reg_user_post($bool_reg_user_post);
-        $uSettings->set_moderate_items($bool_enabled_user_validation);
-
-        /*
-         * Remove all items inserted previously
-         */
         $aItem = Item::newInstance()->listAll();
         foreach($aItem as $item){
             $url = osc_item_delete_url( $item['s_secret'] , $item['pk_i_id'] );
-            $this->selenium->open( $url );
-            $this->assertTrue($this->selenium->isTextPresent("Your listing has been deleted"), "Delete item.");
+            $this->open( $url );
+            $this->assertTrue($this->isTextPresent("Your listing has been deleted"), "Delete item.");
         }
     }
-    /*
+    
     function testItems_User()
     {
-        require dirname(__FILE__).'/ItemData.php';
+        include TEST_ASSETS_PATH . 'ItemData.php';
         $item = $aData[0];
 
-        $uSettings = new utilSettings();
-        $old_moderate_items             = $uSettings->set_moderate_items(0);
-        $old_enabled_users              = $uSettings->set_enabled_users(1);
-        $old_enabled_users_registration = $uSettings->set_enabled_user_registration(1);
-        $old_enabled_user_validation    = $uSettings->set_enabled_user_validation(0);
+        $this->_login();
+        osc_set_preference('moderate_items', 0);
+
+        osc_set_preference('logged_user_item_validation', 1);
         osc_reset_preferences();
-
-        $this->doRegisterUser();
-        $this->loginWith();
-
-
-        $old_logged_user_item_validation = $uSettings->set_logged_user_item_validation(1);
-        osc_reset_preferences();
-        $this->insertItem($item['parentCatId'], $item['catId'], $item['title'],
+        $this->_insertItem($item['parentCatId'], $item['catId'], $item['title'],
             $item['description'], $item['price'],
             $item['regionId'], $item['cityId'], $item['cityArea'],
-            $item['photo'], $item['contactName'],
-            $this->_email);
-        $this->assertTrue($this->selenium->isTextPresent("Your listing has been published"),"insert ad error ") ;
+            $item['photo']);
+        $this->assertTrue($this->isTextPresent("Your listing has been published"),"insert ad error ") ;
 
-        $uSettings->set_logged_user_item_validation(0);
+        osc_set_preference('logged_user_item_validation', 0);
         osc_reset_preferences();
-        $this->insertItem($item['parentCatId'], $item['catId'], $item['title'],
+        $this->_insertItem($item['parentCatId'], $item['catId'], $item['title'],
             $item['description'], $item['price'],
             $item['regionId'], $item['cityId'], $item['cityArea'],
-            $item['photo'], $item['contactName'],
-            $this->_email);
-        $this->assertTrue($this->selenium->isTextPresent("Check your inbox to validate your listing"),"Need validation but message don't appear")   ;
+            $item['photo']);
+        $this->assertTrue($this->isTextPresent("Check your inbox to validate your listing"),"Need validation but message don't appear")   ;
 
-        $uSettings->set_moderate_items($old_moderate_items);
-        $uSettings->set_logged_user_item_validation( $old_logged_user_item_validation );
-        $uSettings->set_enabled_users($old_enabled_users);
-        $uSettings->set_enabled_user_registration($old_enabled_users_registration);
-        $uSettings->set_enabled_user_validation($old_enabled_user_validation);
-
-        unset($uSettings);
     }
+
 
     function testAkismet_postItem()
     {
-        // add akismet keys
-        Preference::newInstance()->update(array('s_value' => '9f18f856aa3c') ,array('s_name'  => 'akismetKey'));
+        osc_set_preference('akismetKey', '9f18f856aa3c');
         osc_reset_preferences();
 
         // add spam item
@@ -176,14 +133,13 @@ class TestItems extends OsclassTestFrontend
             'contactEmail'  => 'new@email.com'
         );
 
-        $uSettings = new utilSettings();
-        $items_wait_time                  = $uSettings->set_items_wait_time(0);
-        $set_selectable_parent_categories = $uSettings->set_selectable_parent_categories(1);
-        $bool_reg_user_post               = $uSettings->set_reg_user_post(0);
-        $bool_enabled_user_validation     = $uSettings->set_moderate_items(-1);
+        osc_set_preference('items_wait_time', 0);
+        osc_set_preference('selectable_parent_categories', 1);
+        osc_set_preference('reg_user_post', 0);
+        osc_set_preference('moderate_items', -1);
 
-        $old_logged_user_item_validation = $uSettings->set_logged_user_item_validation(1);
-        $this->insertItem($item['parentCatId'], $item['catId'], $item['title'],
+        osc_set_preference('logged_user_item_validation', 0);
+        $this->_insertItem($item['parentCatId'], $item['catId'], $item['title'],
             $item['description'], $item['price'],
             $item['regionId'], $item['cityId'], $item['cityArea'],
             $item['photo'], $item['contactName'],
@@ -196,26 +152,27 @@ class TestItems extends OsclassTestFrontend
         $this->assertTrue($oItem['b_spam']=='1', 'Akismet, detect as spam item.');
 
         // reset akismet key
-        Preference::newInstance()->update(array('s_value' => '') ,array('s_name'  => 'akismetKey'));
+        osc_set_preference('akismetKey', '');
         osc_reset_preferences();
 
         // delete item
         $url = osc_item_delete_url( $oItem['s_secret'] , $oItem['pk_i_id'] );
-        $this->selenium->open( $url );
-        $this->assertTrue($this->selenium->isTextPresent("Your listing has been deleted"), "Delete item.");
+        $this->open( $url );
+        $this->assertTrue($this->isTextPresent("Your listing has been deleted"), "Delete item.");
     }
+
 
     function testEditUserItemBadId()
     {
-        $this->selenium->open( osc_item_edit_url('', '9999') );
-        $this->assertTrue($this->selenium->isTextPresent("Sorry, we don't have any listings with that ID"));
+        $this->open( osc_item_edit_url('', '9999') );
+        $this->assertTrue($this->isTextPresent("Sorry, we don't have any listings with that ID"));
     }
 
     function testEditUserItem1()
     {
-        $this->logout();
+        //$this->_logout();
         // create new item
-        require dirname(__FILE__).'/ItemData.php';
+        include TEST_ASSETS_PATH . 'ItemData.php';
         $item = array(
             "parentCatId"   => 'Vehicles',
             "catId"         => 'Cars',
@@ -227,53 +184,50 @@ class TestItems extends OsclassTestFrontend
             'photo'         => array(),'contactName'   => 'contact ad 1','contactEmail'  => 'new@email.com'
         );
 
-        $uSettings = new utilSettings();
-        $items_wait_time                  = $uSettings->set_items_wait_time(0);
-        $set_selectable_parent_categories = $uSettings->set_selectable_parent_categories(1);
-        $bool_reg_user_post               = $uSettings->set_reg_user_post(0);
-        $bool_enabled_user_validation     = $uSettings->set_moderate_items(-1);
+        osc_set_preference('items_wait_time', 0);
+        osc_set_preference('selectable_parent_categories', 1);
+        osc_set_preference('reg_user_post', 0);
+        osc_set_preference('moderate_items', -1);
+        osc_set_preference('logged_user_item_validation', 0);
+        osc_reset_preferences();
 
-        $old_logged_user_item_validation = $uSettings->set_logged_user_item_validation(1);
-        $this->insertItem($item['parentCatId'], $item['catId'], $item['title'],
+        $this->_insertItem($item['parentCatId'], $item['catId'], $item['title'],
             $item['description'], $item['price'],
             $item['regionId'], $item['cityId'], $item['cityArea'],
             $item['photo'], $item['contactName'],
             $item['contactEmail']);
         sleep(1);
-        $this->assertTrue($this->selenium->isTextPresent("Your listing has been published"),"Items, insert item, no user, no validation.") ;
+        $this->assertTrue($this->isTextPresent("Your listing has been published"),"Items, insert item, no user, no validation.") ;
 
-        $uSettings->set_items_wait_time($items_wait_time);
-        $uSettings->set_selectable_parent_categories($set_selectable_parent_categories);
-        $uSettings->set_reg_user_post($bool_reg_user_post);
-        $uSettings->set_moderate_items($bool_enabled_user_validation);
         $itemId = $this->_lastItemId();
 
         // login and try to edit
-        $this->loginWith();
+        $this->_login();
 
-        $this->selenium->open(osc_item_edit_url('', $itemId));
-        $this->assertTrue($this->selenium->isTextPresent(""),"Sorry, we don't have any listing with that ID") ;
+        $this->open(osc_item_edit_url('', $itemId));
+        $this->assertTrue($this->isTextPresent(""),"Sorry, we don't have any listing with that ID") ;
 
         // remove item
         $_item = Item::newInstance()->findByPrimaryKey($itemId);
 
         $url = osc_item_delete_url( $_item['s_secret'], $itemId );
-        $this->selenium->open( $url );
-        $this->assertTrue($this->selenium->isTextPresent("Your listing has been deleted"), "Delete item.");
+        $this->open( $url );
+        $this->assertTrue($this->isTextPresent("Your listing has been deleted"), "Delete item.");
     }
 
+    /*
     function testActivate() // Activate
     {
         $this->loginWith();
 
-        $this->selenium->open( osc_base_url() );
-        $this->selenium->click("link=My account");
-        $this->selenium->waitForPageToLoad("30000");
+        $this->open( osc_base_url() );
+        $this->click("link=My account");
+        $this->waitForPageToLoad("30000");
 
-        $this->selenium->click("xpath=//span[@class='admin-options']/a[text()='Activate']");
-        $this->selenium->waitForPageToLoad("30000");
+        $this->click("xpath=//span[@class='admin-options']/a[text()='Activate']");
+        $this->waitForPageToLoad("30000");
 
-        $this->assertTrue($this->selenium->isTextPresent("The listing has been validated"), "Items, validate user item.");
+        $this->assertTrue($this->isTextPresent("The listing has been validated"), "Items, validate user item.");
     }
 
     function testActivate1()
@@ -294,31 +248,31 @@ class TestItems extends OsclassTestFrontend
         // 1
         $this->loginWith();
         $url = osc_item_activate_url('', $itemId);
-        $this->selenium->open($url);
+        $this->open($url);
         sleep(1);
         // body with class='not-found'
-        $count = $this->selenium->getXpathCount("//body[contains(@class,'not-found')]");
+        $count = $this->getXpathCount("//body[contains(@class,'not-found')]");
         $this->assertTrue($count == 1 , "Items, validate item from other user.");
         // 2
         $this->logout();
         $url = osc_item_activate_url('', $itemId);
-        $this->selenium->open($url);
+        $this->open($url);
         sleep(1);
-        $count = $this->selenium->getXpathCount("//body[contains(@class,'not-found')]");
+        $count = $this->getXpathCount("//body[contains(@class,'not-found')]");
         $this->assertTrue($count == 1 , "Items, validate item from no user.");
         // 3
         $item = Item::newInstance()->findByPrimaryKey($itemId);
         $url = osc_item_activate_url($item['s_secret'], $itemId);
-        $this->selenium->open($url);
+        $this->open($url);
         sleep(1);
-        $this->assertTrue($this->selenium->isTextPresent("The listing has been validated"), "Items, validate item. (direct url)");
+        $this->assertTrue($this->isTextPresent("The listing has been validated"), "Items, validate item. (direct url)");
 
         // remove item
         $_item = Item::newInstance()->findByPrimaryKey($itemId);
 
         $url = osc_item_delete_url( $_item['s_secret'] , $itemId );
-        $this->selenium->open( $url );
-        $this->assertTrue($this->selenium->isTextPresent("Your listing has been deleted"), "Delete item.");
+        $this->open( $url );
+        $this->assertTrue($this->isTextPresent("Your listing has been deleted"), "Delete item.");
     }
 
     function testEditItem()
@@ -330,54 +284,54 @@ class TestItems extends OsclassTestFrontend
         $uSettings = new utilSettings();
         $old_moderate_items = $uSettings->set_moderate_items(0);
 
-        $this->selenium->open( osc_base_url() );
-        $this->selenium->click("link=My account");
-        $this->selenium->waitForPageToLoad("30000");
+        $this->open( osc_base_url() );
+        $this->click("link=My account");
+        $this->waitForPageToLoad("30000");
         // edit first item
-        $this->selenium->click("xpath=//span[@class='admin-options']/a[text()='Edit item']");
-        $this->selenium->waitForPageToLoad("30000");
+        $this->click("xpath=//span[@class='admin-options']/a[text()='Edit item']");
+        $this->waitForPageToLoad("30000");
 
-        $this->selenium->select("catId", "label=regexp:\\s*Car Parts");
+        $this->select("catId", "label=regexp:\\s*Car Parts");
 
-        $this->selenium->type("title[en_US]", "New title new item");
-        $this->selenium->type("description[en_US]", "New description new item new item new item");
-        $this->selenium->type("price", "222");
-        $this->selenium->select("currency", "label=Euro €");
-        $this->selenium->type('id=region', 'Barcelona');
-        $this->selenium->click('id=ui-active-menuitem');
-        $this->selenium->type('id=city', 'Sabadell');
-        $this->selenium->click('id=ui-active-menuitem');
-        $this->selenium->type("cityArea", "New my area");
-        $this->selenium->type("address", "New my address");
-        $this->selenium->click("xpath=//button[@type='submit']");
-        $this->selenium->waitForPageToLoad("3000");
+        $this->type("title[en_US]", "New title new item");
+        $this->type("description[en_US]", "New description new item new item new item");
+        $this->type("price", "222");
+        $this->select("currency", "label=Euro €");
+        $this->type('id=region', 'Barcelona');
+        $this->click('id=ui-active-menuitem');
+        $this->type('id=city', 'Sabadell');
+        $this->click('id=ui-active-menuitem');
+        $this->type("cityArea", "New my area");
+        $this->type("address", "New my address");
+        $this->click("xpath=//button[@type='submit']");
+        $this->waitForPageToLoad("3000");
 
-        $this->assertTrue(  $this->selenium->isTextPresent("Great! We've just updated your listing"), 'Items, edit first item, with validation.' );
+        $this->assertTrue(  $this->isTextPresent("Great! We've just updated your listing"), 'Items, edit first item, with validation.' );
 
         $old_moderate_items = $uSettings->set_moderate_items(-1);
-        $this->selenium->open( osc_base_url(true) );
-        $this->selenium->click("link=My account");
-        $this->selenium->waitForPageToLoad("30000");
+        $this->open( osc_base_url(true) );
+        $this->click("link=My account");
+        $this->waitForPageToLoad("30000");
         // edit first item
-        $this->selenium->click("xpath=//span[@class='admin-options']/a[text()='Edit item']");
-        $this->selenium->waitForPageToLoad("30000");
+        $this->click("xpath=//span[@class='admin-options']/a[text()='Edit item']");
+        $this->waitForPageToLoad("30000");
 
-        $this->selenium->select("select_2", "label=regexp:\\s*Car Parts");
+        $this->select("select_2", "label=regexp:\\s*Car Parts");
 
-        $this->selenium->type("title[en_US]", "New title new item NEW ");
-        $this->selenium->type("description[en_US]", "New description new item new item new item NEW ");
-        $this->selenium->type("price", "666");
-        $this->selenium->select("currency", "label=Euro €");
-        $this->selenium->type('id=region', 'Barcelona');
-        $this->selenium->click('id=ui-active-menuitem');
-        $this->selenium->type('id=city', 'Sabadell');
-        $this->selenium->click('id=ui-active-menuitem');
-        $this->selenium->type("cityArea", "New my area");
-        $this->selenium->type("address", "New my address");
-        $this->selenium->click("//button[@type='submit']");
-        $this->selenium->waitForPageToLoad("3000");
+        $this->type("title[en_US]", "New title new item NEW ");
+        $this->type("description[en_US]", "New description new item new item new item NEW ");
+        $this->type("price", "666");
+        $this->select("currency", "label=Euro €");
+        $this->type('id=region', 'Barcelona');
+        $this->click('id=ui-active-menuitem');
+        $this->type('id=city', 'Sabadell');
+        $this->click('id=ui-active-menuitem');
+        $this->type("cityArea", "New my area");
+        $this->type("address", "New my address");
+        $this->click("//button[@type='submit']");
+        $this->waitForPageToLoad("3000");
 
-        $this->assertTrue( $this->selenium->isTextPresent("Great! We've just updated your listing") ,"Items, edit first item, without validation." );
+        $this->assertTrue( $this->isTextPresent("Great! We've just updated your listing") ,"Items, edit first item, without validation." );
 
         $uSettings->set_moderate_items($old_moderate_items);
 
@@ -390,34 +344,34 @@ class TestItems extends OsclassTestFrontend
         $itemId = $this->_lastItemId();
         $url = osc_item_delete_url('', $itemId);
 
-        $this->selenium->open($url);
-        $this->assertTrue( $this->selenium->isTextPresent("The listing you are trying to delete couldn't be deleted") ,"Items, delete item without secret." );
+        $this->open($url);
+        $this->assertTrue( $this->isTextPresent("The listing you are trying to delete couldn't be deleted") ,"Items, delete item without secret." );
     }
 
     function testDeleteItem()
     {
         $this->loginWith();
 
-        $this->selenium->open( osc_base_url() );
-        $this->selenium->click("link=My account");
-        $this->selenium->waitForPageToLoad("30000");
+        $this->open( osc_base_url() );
+        $this->click("link=My account");
+        $this->waitForPageToLoad("30000");
 
-        $numItems = $this->selenium->getXpathCount("//span[@class='admin-options']/a[text()='Delete']");
+        $numItems = $this->getXpathCount("//span[@class='admin-options']/a[text()='Delete']");
 
         while($numItems > 0) {
             // delete first item
-            $this->selenium->click("xpath=//span[@class='admin-options']/a[text()='Delete']");
-            $this->selenium->waitForPageToLoad("30000");
-            $this->assertTrue($this->selenium->isTextPresent("Your listing has been deleted"), "Can't delete listing. ERROR ");
+            $this->click("xpath=//span[@class='admin-options']/a[text()='Delete']");
+            $this->waitForPageToLoad("30000");
+            $this->assertTrue($this->isTextPresent("Your listing has been deleted"), "Can't delete listing. ERROR ");
 
-            $numItems = $this->selenium->getXpathCount("//span[@class='admin-options']/a[text()='Delete']");
+            $numItems = $this->getXpathCount("//span[@class='admin-options']/a[text()='Delete']");
 
-            $this->selenium->open( osc_base_url() );
-            $this->selenium->click("link=My account");
-            $this->selenium->waitForPageToLoad("30000");
+            $this->open( osc_base_url() );
+            $this->click("link=My account");
+            $this->waitForPageToLoad("30000");
 
-            $this->selenium->click("link=My account");
-            $this->selenium->waitForPageToLoad("30000");
+            $this->click("link=My account");
+            $this->waitForPageToLoad("30000");
         }
         $this->removeUserByMail();
     }
@@ -425,7 +379,7 @@ class TestItems extends OsclassTestFrontend
     function _insertItemToValidate()
     {
         $this->logout();
-        require dirname(__FILE__).'/ItemData.php';
+        include TEST_ASSETS_PATH . 'ItemData.php';
         $item = $aData[3];
 
         $uSettings = new utilSettings();
@@ -435,13 +389,13 @@ class TestItems extends OsclassTestFrontend
         $bool_enabled_user_validation     = $uSettings->set_moderate_items(2);
 
         $old_logged_user_item_validation = $uSettings->set_logged_user_item_validation(1);
-        $this->insertItem($item['parentCatId'], $item['catId'], $item['title'],
+        $this->_insertItem($item['parentCatId'], $item['catId'], $item['title'],
             $item['description'], $item['price'],
             $item['regionId'], $item['cityId'], $item['cityArea'],
             $item['photo'], $item['contactName'],
             'test@force.com');
         sleep(1);
-        $this->assertTrue($this->selenium->isTextPresent("Check your inbox to validate your listing"),"Items, insert item, no user, with validation.") ;
+        $this->assertTrue($this->isTextPresent("Check your inbox to validate your listing"),"Items, insert item, no user, with validation.") ;
 
         $uSettings->set_items_wait_time($items_wait_time);
         $uSettings->set_selectable_parent_categories($set_selectable_parent_categories);
@@ -451,6 +405,17 @@ class TestItems extends OsclassTestFrontend
         return $this->_lastItemId();
     }
                  */
+
+
+    function testClean() {
+        $aItem = Item::newInstance()->listAll('s_contact_email = ' . TEST_USER_EMAIL . ' AND fk_i_user IS NULL');
+        foreach($aItem as $item){
+            $url = osc_item_delete_url( $item['s_secret'] , $item['pk_i_id'] );
+            $this->open( $url );
+            $this->assertTrue($this->isTextPresent("Your listing has been deleted"), "Delete item.");
+        }
+        $this->_removeUserByEmail(TEST_USER_EMAIL);
+    }
 
 
 
