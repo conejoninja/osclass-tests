@@ -113,7 +113,7 @@ class TestUser extends OsclassTestFrontend
         $this->waitForPageToLoad("30000");
 
         // WRONG EMAIL
-        $this->_login('user.example.com');
+        $this->_login('wrongwrongwronguser@example.com');
         $this->assertEquals("xThe user doesn't exist", $this->getText("id=flashmessage"));
 
         // WRONG PASSWORD
