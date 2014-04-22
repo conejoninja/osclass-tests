@@ -83,10 +83,12 @@ class OsclassTestFrontend extends OsclassTest
         if( count($aPhotos) > 0 ) {
             sleep(2);
 
-            $this->type("qqfile", LIB_PATH."simpletest/test/osclass/".$aPhotos[0]);
+            $this->chooseOkOnNextConfirmation();
+            $this->type("qqfile", TEST_ASSETS_PATH . $aPhotos[0]);
+            sleep(4);
             for($k=1;$k<count($aPhotos);$k++) {
+                $this->type("qqfile", TEST_ASSETS_PATH . $aPhotos[$k]);
                 sleep(4);
-                $this->type("qqfile", LIB_PATH."simpletest/test/osclass/".$aPhotos[$k]);
             }
         }
 
@@ -97,7 +99,9 @@ class OsclassTestFrontend extends OsclassTest
             $this->type("contactEmail", $email);
         }
 
-        $this->click("//button[text()='Publish']");
+        $this->click("//button[@type='submit']");
+        $this->chooseOkOnNextConfirmation();
+//        $this->click("//button[text()='Publish']");
         $this->waitForPageToLoad("30000");
     }
 

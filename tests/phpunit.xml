@@ -26,6 +26,10 @@
             <directory>frontend/test-items.php</directory>
         </testsuite>
 
+        <testsuite name="search">
+            <directory>frontend/test-search.php</directory>
+        </testsuite>
+
     </testsuites>
 
 </phpunit>
