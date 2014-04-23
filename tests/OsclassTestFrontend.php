@@ -27,6 +27,9 @@ class OsclassTestFrontend extends OsclassTest
         $this->type("id=s_password2", $pass);
         $this->click("//button[@type='submit']");
         $this->waitForPageToLoad("30000");
+
+        $user = User::newInstance()->findByEmail($email);
+        return @$user['pk_i_id'];
     }
 
     protected function _login($email = TEST_USER_EMAIL, $pass = TEST_USER_PASS)
@@ -101,10 +104,31 @@ class OsclassTestFrontend extends OsclassTest
 
         $this->click("//button[@type='submit']");
         $this->chooseOkOnNextConfirmation();
-//        $this->click("//button[text()='Publish']");
         $this->waitForPageToLoad("30000");
     }
 
+
+    function _createAlert($email, $success = true)
+    {
+        // search only items with picture
+        $this->open( osc_search_url() );
+        $this->waitForPageToLoad("10000");
+
+        // create alert invalid email
+        $this->click('alert_email');
+        $this->type('alert_email', $email);
+        $this->click("xpath=//form[@id='sub_alert']/button");
+        if( !$success ) {
+            $this->assertTrue($this->getAlert() == 'Invalid email address', 'Search - create alert');
+        }
+        $aAuxAlert = Alerts::newInstance()->findByEmail($email);
+        if( $success ) {
+            $this->assertTrue(count($aAuxAlert) == 1, 'Search - create alert');
+        } else {
+            $this->assertTrue(count($aAuxAlert) == 0, 'Search - create alert');
+        }
+    }
+    
 
 }
 ?>

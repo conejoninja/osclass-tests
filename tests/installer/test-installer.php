@@ -6,19 +6,20 @@ class TestInstallerSuite extends OsclassTestInstaller
     public function testInstallerEsp()
     {
         $this->clean();
+        $this->prepareTest();
 
         $this->open(TEST_SERVER_URL);
         $this->click("link=Install");
         $this->waitForPageToLoad("30000");
-        $this->select("id=install_locale", "label=Spanish (Spain)");
+        $this->select("id=install_locale", "label=Spanish");
         $this->waitForPageToLoad("30000");
-        $this->assertEquals("MySQLi extensión para PHP", $this->getText("//div[@id='content']/form/div/ul/li[2]"));
+        $this->assertEquals("Extensión MySQLi para PHP", $this->getText("//div[@id='content']/form/div/ul/li[2]"));
         $this->select("id=install_locale", "label=English (US)");
         $this->waitForPageToLoad("30000");
         $this->assertEquals("MySQLi extension for PHP", $this->getText("//div[@id='content']/form/div/ul/li[2]"));
-        $this->select("id=install_locale", "label=Spanish (Spain)");
+        $this->select("id=install_locale", "label=Spanish");
         $this->waitForPageToLoad("30000");
-        $this->assertEquals("MySQLi extensión para PHP", $this->getText("//div[@id='content']/form/div/ul/li[2]"));
+        $this->assertEquals("Extensión MySQLi para PHP", $this->getText("//div[@id='content']/form/div/ul/li[2]"));
         $this->click("css=input.button");
         $this->waitForPageToLoad("30000");
         $this->type("id=dbhost", TEST_DB_HOST);
@@ -39,21 +40,29 @@ class TestInstallerSuite extends OsclassTestInstaller
         $this->select("id=country_select", "label=Spain");
         $this->click("link=Next");
         $this->waitForPageToLoad("60000");
-        $this->assertEquals("¡Felicitaciones!", $this->getText("css=h2.target"));
+        $this->assertEquals("Congratulations!", $this->getText("css=h2.target"));
         $this->pause(5000);
+
+        $aItem = Item::newInstance()->listAll();
+        foreach($aItem as $item){
+            $url = osc_item_delete_url( $item['s_secret'] , $item['pk_i_id'] );
+            $this->open( $url );
+            $this->assertTrue($this->isTextPresent("Your listing has been deleted"), "Delete item.");
+        }
     }
 
 
     public function testInstallerEng()
     {
         $this->clean();
+        $this->prepareTest();
 
         $this->open(TEST_SERVER_URL);
         $this->click("link=Install");
         $this->waitForPageToLoad("30000");
-        $this->select("id=install_locale", "label=Spanish (Spain)");
+        $this->select("id=install_locale", "label=Spanish");
         $this->waitForPageToLoad("30000");
-        $this->assertEquals("MySQLi extensión para PHP", $this->getText("//div[@id='content']/form/div/ul/li[2]"));
+        $this->assertEquals("Extensión MySQLi para PHP", $this->getText("//div[@id='content']/form/div/ul/li[2]"));
         $this->select("id=install_locale", "label=English (US)");
         $this->waitForPageToLoad("30000");
         $this->assertEquals("MySQLi extension for PHP", $this->getText("//div[@id='content']/form/div/ul/li[2]"));
@@ -77,7 +86,15 @@ class TestInstallerSuite extends OsclassTestInstaller
         $this->click("link=Next");
         $this->waitForPageToLoad("60000");
         $this->assertEquals("Congratulations!", $this->getText("css=h2.target"));
-        $this->pause(5000);
+
+
+        $aItem = Item::newInstance()->listAll();
+        foreach($aItem as $item){
+            $url = osc_item_delete_url( $item['s_secret'] , $item['pk_i_id'] );
+            $this->open( $url );
+            $this->assertTrue($this->isTextPresent("Your listing has been deleted"), "Delete item.");
+        }
+
     }
 
 
