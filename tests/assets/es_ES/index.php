@@ -24,7 +24,7 @@ function locale_es_ES_info() {
          'name'            => 'Spanish (Spain)'
         ,'short_name'      => 'Spanish'
         ,'description'     => 'Spanish (Spain) translation'
-        ,'version'         => 'Dev version'
+        ,'version'         => '3.3.00'
         ,'author_name'     => 'Osclass'
         ,'author_url'      => 'http://osclass.org/'
         ,'currency_format' => '{NUMBER} {CURRENCY}'

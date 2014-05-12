@@ -2,13 +2,42 @@
 # This file is distributed under the same license as the Bender package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-01-07 10:50:54+0000\n"
+"PO-Revision-Date: 2014-05-12 14:34:11+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/0.1\n"
 "Project-Id-Version: Bender\n"
+
+#: functions.php:382
+msgid "Public Profile"
+msgstr ""
+
+#: item-sidebar.php:95
+msgid "Attachment"
+msgstr ""
+
+#: main.php:41
+msgid "There aren't listings available at this moment"
+msgstr ""
+
+#: search.php:75
+msgid "%1$d - %2$d of %3$d listings"
+msgstr ""
+
+#: search.php:121
+msgid "Premium listings"
+msgstr ""
+
+msgid "http://osclass.org/"
+msgstr ""
+
+msgid "Bender theme"
+msgstr ""
+
+msgid "Osclass"
+msgstr ""
 
 #: 404.php:8
 msgid "Sorry but I can't find the page you're looking for"
@@ -22,7 +51,7 @@ msgstr "¿Necesitas ayuda? Tenemos unos consejos para que lo encuentres."
 msgid "<strong>Search</strong> for it:"
 msgstr "<strong>Búscalo</strong>:"
 
-#: 404.php:18 header.php:69
+#: 404.php:18 header.php:73
 msgid "Search"
 msgstr "Buscar"
 
@@ -30,55 +59,55 @@ msgstr "Buscar"
 msgid "<strong>Look</strong> for it in the most popular categories."
 msgstr "<strong>Búscalo</strong> en las categorías más populares. "
 
-#: admin/header.php:7 functions.php:472
+#: admin/header.php:7 functions.php:526
 msgid "Header logo"
 msgstr "Logo de cabecera"
 
-#: admin/header.php:10
+#: admin/header.php:13
 msgid "Preview"
 msgstr "Vista previa"
 
-#: admin/header.php:17
+#: admin/header.php:20
 msgid "Remove logo"
 msgstr "Eliminar logo"
 
-#: admin/header.php:25
+#: admin/header.php:28
 msgid "No logo has been uploaded yet"
 msgstr "Aun no se ha añadido ningún logo"
 
-#: admin/header.php:28
+#: admin/header.php:31
 msgid "Upload logo"
 msgstr "Subir logo"
 
-#: admin/header.php:30
+#: admin/header.php:33
 msgid "The preferred size of the logo is 600x100."
 msgstr "El tamaño recomendado del logo es 600x100."
 
-#: admin/header.php:32
+#: admin/header.php:35
 msgid "<strong>Note:</strong> Uploading another logo will overwrite the current logo."
 msgstr "<strong>Nota:</strong> Si subes otro logo, reemplazará el actual."
 
-#: admin/header.php:40
+#: admin/header.php:43
 msgid "Logo image (png,gif,jpg)"
 msgstr "Imagen de logo (png, gif, jpg)"
 
-#: admin/header.php:46
+#: admin/header.php:49
 msgid "Upload"
 msgstr "Subir"
 
-#: admin/header.php:55
+#: admin/header.php:58
 msgid "The images folder <strong>%s</strong> is not writable on your server"
 msgstr "La carpeta con imagenes <strong>%s</strong> no se puede modificar en este servidor"
 
-#: admin/header.php:56
+#: admin/header.php:59
 msgid "Osclass can't upload the logo image from the administration panel."
 msgstr "Osclass no puede subir la imagen del logotipo desde el panel de administración."
 
-#: admin/header.php:57
+#: admin/header.php:60
 msgid "Please make the aforementioned image folder writable."
 msgstr "Por favor, cambia la carpeta con imagen para que se pueda modificar."
 
-#: admin/header.php:62
+#: admin/header.php:65
 msgid "To make a directory writable under UNIX execute this command from the shell:"
 msgstr "Para poder modificar el directorio en UNIX, ejecuta lo siguiente:"
 
@@ -94,7 +123,7 @@ msgstr "Personalizar"
 msgid "Donate"
 msgstr "Contribuir"
 
-#: admin/settings.php:24 functions.php:473
+#: admin/settings.php:24 functions.php:527
 msgid "Theme settings"
 msgstr "Ajustes del tema"
 
@@ -150,7 +179,7 @@ msgstr "Suscríbete a esta búsqueda"
 msgid "Subscribe now"
 msgstr "Suscríbete ahora"
 
-#: common/head.php:3 item.php:165 loop-single-premium.php:26 loop-single.php:26
+#: common/head.php:3 item.php:157 loop-single-premium.php:26 loop-single.php:26
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -162,7 +191,7 @@ msgstr "Cancelar"
 msgid "Contact us"
 msgstr "Contacta con nosotros"
 
-#: contact.php:40 item-send-friend.php:44 item-sidebar.php:76 item.php:191
+#: contact.php:40 item-send-friend.php:44 item-sidebar.php:76 item.php:183
 #: user-public-sidebar.php:33
 msgid "Your name"
 msgstr "Tu nombre"
@@ -184,40 +213,40 @@ msgstr "Asunto"
 msgid "Message"
 msgstr "Mensaje"
 
-#: contact.php:68 item-send-friend.php:87 item-sidebar.php:112 item.php:216
+#: contact.php:68 item-send-friend.php:87 item-sidebar.php:119 item.php:208
 #: user-public-sidebar.php:69
 msgid "Send"
 msgstr "Enviar"
 
-#: footer.php:33 header.php:41
+#: footer.php:34 header.php:42
 msgid "Hi %s"
 msgstr "Hola %s"
 
-#: footer.php:34 header.php:42
+#: footer.php:35 header.php:43
 msgid "My account"
 msgstr "Mi cuenta"
 
-#: footer.php:35 header.php:43
+#: footer.php:36 header.php:44
 msgid "Logout"
 msgstr "Cerrar sesión"
 
-#: footer.php:38 functions.php:319 header.php:46 item-sidebar.php:54
+#: footer.php:39 functions.php:355 header.php:47 item-sidebar.php:54
 msgid "Login"
 msgstr "Iniciar sesión"
 
-#: footer.php:41 header.php:48 item-sidebar.php:55 user-login.php:58
+#: footer.php:42 header.php:49 item-sidebar.php:55 user-login.php:58
 msgid "Register for a free account"
 msgstr "Regístrate gratis"
 
-#: footer.php:46 header.php:51
+#: footer.php:49 header.php:54
 msgid "Publish your ad for free"
 msgstr "Publica tu anuncio gratis"
 
-#: footer.php:60 functions.php:323 user-public-sidebar.php:26
+#: footer.php:64 functions.php:359 user-public-sidebar.php:26
 msgid "Contact"
 msgstr "Contactar"
 
-#: footer.php:70
+#: footer.php:74
 msgid "Language:"
 msgstr "Idioma:"
 
@@ -225,106 +254,106 @@ msgstr "Idioma:"
 msgid "ie. PHP Programmer"
 msgstr "por ejemplo: Programador PHP"
 
-#: functions.php:304 item-post.php:40
+#: functions.php:340 item-post.php:40
 msgid "Publish a listing"
 msgstr "Publica tu anuncio"
 
-#: functions.php:305
+#: functions.php:341
 msgid "Edit your listing"
 msgstr "Editar anuncio"
 
-#: functions.php:306 item-send-friend.php:31
+#: functions.php:342 item-send-friend.php:31
 msgid "Send to a friend"
 msgstr "Enviar a un amigo"
 
-#: functions.php:307 item-sidebar.php:40
+#: functions.php:343 item-sidebar.php:40
 msgid "Contact publisher"
 msgstr "Contactar el anunciante"
 
-#: functions.php:308
+#: functions.php:344
 msgid "Search results"
 msgstr "Resultados de búsqueda"
 
-#: functions.php:309
+#: functions.php:345
 msgid "Search results: %s"
 msgstr "Resultados de búsqueda: %s"
 
-#: functions.php:310
+#: functions.php:346
 msgid "Dashboard"
 msgstr "Panel de administración"
 
-#: functions.php:311
+#: functions.php:347
 msgid "%s's profile"
 msgstr "%s's perfil"
 
-#: functions.php:312 functions.php:356
+#: functions.php:348 functions.php:397
 msgid "Account"
 msgstr "Cuenta"
 
-#: functions.php:313 functions.php:346 user-alerts.php:53
+#: functions.php:349 functions.php:387 search.php:128 user-alerts.php:51
 msgid "Listings"
 msgstr "Anuncios"
 
-#: functions.php:314 functions.php:351 user-alerts.php:32 user-alerts.php:37
+#: functions.php:350 functions.php:392 user-alerts.php:32 user-alerts.php:37
 msgid "Alerts"
 msgstr "Alertas"
 
-#: functions.php:315 user-profile.php:32 user-profile.php:37
+#: functions.php:351 user-profile.php:32 user-profile.php:37
 msgid "Update account"
 msgstr "Actualizar la cuenta"
 
-#: functions.php:316 functions.php:361
+#: functions.php:352 functions.php:402
 msgid "Change email"
 msgstr "Cambiar email"
 
-#: functions.php:317 functions.php:366 user-change_username.php:34
+#: functions.php:353 functions.php:407 user-change_username.php:34
 #: user-change_username.php:39
 msgid "Change username"
 msgstr "Cambiar el nombre de usuario"
 
-#: functions.php:318 functions.php:321 functions.php:371
+#: functions.php:354 functions.php:357 functions.php:412
 #: user-change_password.php:32 user-change_password.php:37
 #: user-forgot_password.php:52
 msgid "Change password"
 msgstr "Cambiar la contraseña"
 
-#: functions.php:320
+#: functions.php:356
 msgid "Recover password"
 msgstr "Recuperar la contraseña"
 
-#: functions.php:322
+#: functions.php:358
 msgid "Create a new account"
 msgstr "Crear una cuenta nueva"
 
-#: functions.php:376 user-sidebar.php:28
+#: functions.php:417 user-sidebar.php:28
 msgid "Delete account"
 msgstr "Borrar la cuenta"
 
-#: functions.php:435
+#: functions.php:474
 msgid "Theme settings updated correctly"
 msgstr "Los ajustes del tema se han actualizado con éxito"
 
-#: functions.php:442
+#: functions.php:489
 msgid "The logo image has been uploaded correctly"
 msgstr "La imagen del logo ha sido subida con éxito"
 
-#: functions.php:444 functions.php:447
+#: functions.php:491
 msgid "An error has occurred, please try again"
 msgstr "Ha habido un error, por favor, inténtalo de nuevo."
 
-#: functions.php:454
+#: functions.php:502
 msgid "The logo image has been removed"
 msgstr "La imagen del logo ha sido eliminada"
 
-#: functions.php:456
+#: functions.php:504
 msgid "Image not found"
 msgstr "Imagen no encontrada"
 
-#: functions.php:531 functions.php:553
+#: functions.php:585 functions.php:607
 msgid "All categories"
 msgstr "Todas las categorías"
 
-#: header.php:63 item-post.php:55
+#: header.php:67 item-post.php:55
 msgid "Select a category"
 msgstr "Elige una categoría"
 
@@ -336,7 +365,7 @@ msgstr "Información general"
 msgid "Category"
 msgstr "Categoría"
 
-#: item-post.php:59 item.php:204
+#: item-post.php:59 item.php:196
 msgid "Title"
 msgstr "Título"
 
@@ -348,65 +377,57 @@ msgstr "Descripción"
 msgid "Price"
 msgstr "Precio"
 
-#: item-post.php:81 item-post.php:83
-msgid "Photos"
-msgstr "Fotos"
-
-#: item-post.php:90
-msgid "Add new photo"
-msgstr "Añadir una foto nueva"
-
-#: item-post.php:96
+#: item-post.php:83
 msgid "Listing Location"
 msgstr "Localización de anuncios"
 
-#: item-post.php:99 user-profile.php:70
+#: item-post.php:86 user-profile.php:70
 msgid "Country"
 msgstr "País"
 
-#: item-post.php:105 user-profile.php:76
+#: item-post.php:92 user-profile.php:76
 msgid "Region"
 msgstr "Región"
 
-#: item-post.php:111 search-sidebar.php:44 user-profile.php:82
+#: item-post.php:98 search-sidebar.php:44 user-profile.php:82
 msgid "City"
 msgstr "Ciudad"
 
-#: item-post.php:117
+#: item-post.php:104
 msgid "City Area"
 msgstr "Barrio"
 
-#: item-post.php:123 user-profile.php:94
+#: item-post.php:110 user-profile.php:94
 msgid "Address"
 msgstr "Dirección"
 
-#: item-post.php:132
+#: item-post.php:119
 msgid "Seller's information"
 msgstr "Información de contacto"
 
-#: item-post.php:134 item-sidebar.php:59 user-profile.php:46
+#: item-post.php:121 item-sidebar.php:59 user-profile.php:46
 #: user-register.php:39
 msgid "Name"
 msgstr "Nombre"
 
-#: item-post.php:140 user-login.php:38 user-recover.php:37 user-register.php:45
+#: item-post.php:127 user-login.php:38 user-recover.php:37 user-register.php:45
 msgid "E-mail"
 msgstr "E-mail"
 
-#: item-post.php:147
+#: item-post.php:134
 msgid "Show e-mail on the listing page"
 msgstr "Muestra el e-mail en la página de anuncio"
 
-#: item-post.php:166 user-change_email.php:59 user-change_password.php:64
+#: item-post.php:153 user-change_email.php:59 user-change_password.php:64
 #: user-change_username.php:102 user-profile.php:113
 msgid "Update"
 msgstr "Actualizar"
 
-#: item-post.php:166
+#: item-post.php:153
 msgid "Publish"
 msgstr "Publicar"
 
-#: item-send-friend.php:50 item.php:197
+#: item-send-friend.php:50 item.php:189
 msgid "Your e-mail"
 msgstr "Tu e-mail"
 
@@ -478,11 +499,11 @@ msgstr "Tu dirección e-mail"
 msgid "Phone number"
 msgstr "El número de teléfono"
 
-#: item-sidebar.php:106 user-public-sidebar.php:63
+#: item-sidebar.php:113 user-public-sidebar.php:63
 msgid "Enter the words above"
 msgstr "Introduzca las palabras de arriba"
 
-#: item-sidebar.php:108 user-public-sidebar.php:65
+#: item-sidebar.php:115 user-public-sidebar.php:65
 msgid "Help"
 msgstr "Ayuda"
 
@@ -494,7 +515,7 @@ msgstr "<strong class=\"publish\">Fecha de publicación</strong>: %1$s"
 msgid "<strong class=\"update\">Modified date:</strong> %1$s"
 msgstr "<strong class=\"update\">Fecha de modificación:</strong> %1$s"
 
-#: item.php:61 main.php:75
+#: item.php:61 main.php:67
 msgid "Location"
 msgstr "Localización"
 
@@ -538,23 +559,23 @@ msgstr "Este sitio no está involucrado en la transacción y no gestiona los pag
 msgid "Related listings"
 msgstr "Anuncios similares"
 
-#: item.php:154
+#: item.php:146
 msgid "Comments"
 msgstr "Comentarios"
 
-#: item.php:161
+#: item.php:153
 msgid "by"
 msgstr "según"
 
-#: item.php:165
+#: item.php:157
 msgid "Delete your comment"
 msgstr "Elimina tu comentario"
 
-#: item.php:177
+#: item.php:169
 msgid "Leave your comment (spam and offensive messages will be removed)"
 msgstr "Deja un comentario (mensajes ofensivos y spam serán eliminandos)"
 
-#: item.php:210
+#: item.php:202
 msgid "Comment"
 msgstr "Comentario"
 
@@ -570,15 +591,11 @@ msgstr "Activar"
 msgid "Latest Listings"
 msgstr "Últimos anuncios"
 
-#: main.php:41
-msgid "There aren't job offers available at this moment"
-msgstr "No hay ofertas de empleo disponibles en este momento"
-
 #: main.php:46 search.php:81
 msgid "Grid"
 msgstr "Cuadro"
 
-#: main.php:65
+#: main.php:57
 msgid "See all listings"
 msgstr "Mostrar todas las ofertas"
 
@@ -630,7 +647,7 @@ msgstr "Mostrar filtros"
 msgid "Sort by"
 msgstr "Ordenar según"
 
-#: search.php:157
+#: search.php:141
 msgid "Other searches that may interest you"
 msgstr "Otras búsquedas que te pueden interesar"
 
@@ -788,9 +805,3 @@ msgstr "¿Seguro que quieres eliminar tu cuenta?"
 
 msgid "bender"
 msgstr "bender"
-
-msgid "http://www.osclass.org/"
-msgstr "http://www.osclass.org/"
-
-msgid "Osclass team"
-msgstr "Equipo Osclass"
