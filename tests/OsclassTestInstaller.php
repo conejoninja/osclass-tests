@@ -101,8 +101,3 @@ function osc_test_copyemz($file1,$file2){
 
     return $status;
 }
-
-
-
-?>
-

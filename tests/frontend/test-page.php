@@ -45,4 +45,3 @@ class TestPage extends OsclassTestFrontend
     }
 
 }
-?>

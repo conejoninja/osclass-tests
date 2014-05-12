@@ -179,4 +179,3 @@ class TestUser extends OsclassTestFrontend
     }
 
 }
-?>
