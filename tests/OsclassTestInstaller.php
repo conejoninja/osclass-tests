@@ -27,6 +27,7 @@ class OsclassTestInstaller extends OsclassTest
         define('THEMES_PATH', CONTENT_PATH . 'themes/');
         define('PLUGINS_PATH', CONTENT_PATH . 'plugins/');
         define('TRANSLATIONS_PATH', CONTENT_PATH . 'languages/');
+        define('UPLOADS_PATH', CONTENT_PATH . 'uploads/');
 
 
         require_once TEST_SERVER_PATH . 'config.php';
