@@ -43,13 +43,6 @@ class TestInstallerSuite extends OsclassTestInstaller
         $this->assertEquals("¡Felicitaciones!", $this->getText("css=h2.target"));
         $this->pause(5000);
 
-        $this->_ocload();
-        $aItem = Item::newInstance()->listAll();
-        foreach($aItem as $item){
-            $url = osc_item_delete_url( $item['s_secret'] , $item['pk_i_id'] );
-            $this->open( $url );
-            $this->assertTrue($this->isTextPresent("Su registro ha sido eliminado"), "Delete item.");
-        }
     }
 
 
