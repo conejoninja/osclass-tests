@@ -40,14 +40,15 @@ class TestInstallerSuite extends OsclassTestInstaller
         $this->select("id=country_select", "label=Spain");
         $this->click("link=Next");
         $this->waitForPageToLoad("300000");
-        $this->assertEquals("Congratulations!", $this->getText("css=h2.target"));
+        $this->assertEquals("¡Felicitaciones!", $this->getText("css=h2.target"));
         $this->pause(5000);
 
+        $this->_ocload();
         $aItem = Item::newInstance()->listAll();
         foreach($aItem as $item){
             $url = osc_item_delete_url( $item['s_secret'] , $item['pk_i_id'] );
             $this->open( $url );
-            $this->assertTrue($this->isTextPresent("Your listing has been deleted"), "Delete item.");
+            $this->assertTrue($this->isTextPresent("Su registro ha sido eliminado"), "Delete item.");
         }
     }
 
@@ -87,7 +88,7 @@ class TestInstallerSuite extends OsclassTestInstaller
         $this->waitForPageToLoad("300000");
         $this->assertEquals("Congratulations!", $this->getText("css=h2.target"));
 
-
+        $this->_ocload();
         $aItem = Item::newInstance()->listAll();
         foreach($aItem as $item){
             $url = osc_item_delete_url( $item['s_secret'] , $item['pk_i_id'] );
