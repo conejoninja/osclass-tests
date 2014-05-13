@@ -3,7 +3,7 @@ require_once dirname(dirname(__FILE__)).'/OsclassTestFrontend.php';
 class TestSearch extends OsclassTestFrontend
 {
 
-    /*public function testLoadItems()
+    public function testLoadItems()
     {
 
         osc_set_preference('reg_user_post', 0);
@@ -25,9 +25,9 @@ class TestSearch extends OsclassTestFrontend
             $this->assertTrue($this->isTextPresent("Your listing has been published","Insert item.") );
 
         }
-    } */
+    }
 
-    /*function testNewly()
+    function testNewly()
     {
         $this->open( osc_search_url() );
         $this->click("link=Newly listed");
@@ -103,7 +103,7 @@ class TestSearch extends OsclassTestFrontend
         $this->waitForPageToLoad("30000");
         $count = $this->getXpathCount("//li[contains(@class,'listing-card')]");
         $this->assertTrue($count == 4 , "Search by sCity = Balsareny.");
-    }        */
+    }
 
     function _testSPatternCombi4() // TODO FIXME
     {
@@ -114,20 +114,22 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue($count == 1, "Search by sCategory = For sale.");
     }
 
-    /*function testSPatternCombi5()
+    function testSPatternCombi5()
     {
         $this->open( osc_search_url() );
         $this->click("xpath=//input[@id='withPicture']"); // only items with pictures
         $this->click("xpath=//button[text()='Apply']");
         $this->waitForPageToLoad("30000");
         $count = $this->getXpathCount("//li[contains(@class,'listing-card')]");
-        $this->assertTrue($count == 9 , "Search by [ Show only items with pictures ].");
-    }*/
+        //$this->assertTrue($count == 9 , "Search by [ Show only items with pictures ].");
+        $this->assertTrue($this->isTextPresent("1 - 10 of 10 listings"));
 
-    /*function testSearchUserItems()
+    }
+
+    function testSearchUserItems()
     {
         include TEST_ASSETS_PATH . 'ItemData.php';
-        osc_set_preference('enabled_user_validation', 0);
+        osc_set_preference('enabled_user_validation', 1);
 
         $userId = $this->_userRegistration('testusersearch@osclass.org', 'password');
         // add new items to user
@@ -147,15 +149,14 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue($count == 2 , "Search by [ User id ].");
 
         // remove user test
-        User::newInstance()->deleteByPrimaryKey($userId);
-    }*/
+        $this->_removeUserByEmail('testusersearch@osclass.org');
+    }
 
-    /*
     function testLocations()
     {
         $searchCountry  = osc_search_url(array('sCountry'   => 'ES'));
         $this->open( $searchCountry );
-        $this->assertTrue( $this->isTextPresent("1 - 12 of 16 listings"), "Insert item." );
+        $this->assertTrue( $this->isTextPresent("1 - 12 of 14 listings"), "Insert item." );
 
         $searchRegion   = osc_search_url(array('sRegion'    => 'Valencia'));
         $this->open( $searchRegion );
@@ -173,6 +174,7 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue($count == 2 , "Search by [ sCityArea city area test ].");
     }
 
+
     function testCreateAlert()
     {
         $this->_createAlert('foobar@invalid_email', false);
@@ -180,7 +182,7 @@ class TestSearch extends OsclassTestFrontend
         $this->_createAlert(TEST_USER_EMAIL);
 
         Alerts::newInstance()->delete(array('s_email' => TEST_USER_EMAIL));
-    } */
+    }
 
     function testExpiredItems()
     {
@@ -211,10 +213,6 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue($this->isTextPresent("There are no results matching"), "search frontend - there are items ERROR" );
     }
 
-    //
-    // añadir test filtros + categoria
-    //
-     /*
     function testHighligthResults()
     {
         $this->open(osc_search_url() );
@@ -242,6 +240,7 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue($count == 1 , "Search by [ (XXX) pattern ].");
     }
 
+
     function testInputEscapeValue()
     {
         $pattern = 'fooo " bar';
@@ -262,8 +261,8 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue( $pattern ==$this->getEval("var win = this.browserbot.getCurrentWindow(); win.document.getElementsByName('sCity')[0].value"), "Correct escape input values sCity" );
         $this->assertTrue( '33' == $this->getEval("var win = this.browserbot.getCurrentWindow(); win.document.getElementsByName('sPriceMin')[0].value"), "Correct escape input values sPriceMin" );
         $this->assertTrue( '99' == $this->getEval("var win = this.browserbot.getCurrentWindow(); win.document.getElementsByName('sPriceMax')[0].value"), "Correct escape input values sPriceMax" );
-    }    */
-        /*
+    }
+
     public function testRemoveLoadedItems()
     {
         $aItems = Item::newInstance()->findByEmail(TEST_USER_EMAIL) ;
@@ -272,6 +271,6 @@ class TestSearch extends OsclassTestFrontend
             $this->open( $url );
             $this->assertTrue($this->isTextPresent("Your listing has been deleted"), "Delete item.");
         }
-    } */
+    }
 
 }
