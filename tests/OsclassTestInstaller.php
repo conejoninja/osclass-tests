@@ -23,6 +23,11 @@ class OsclassTestInstaller extends OsclassTest
     public function _ocload() {
         define( 'ABS_PATH', TEST_SERVER_PATH);
         define('LIB_PATH', TEST_SERVER_PATH . 'oc-includes/');
+        define('CONTENT_PATH', TEST_SERVER_PATH . 'oc-content/');
+        define('THEMES_PATH', CONTENT_PATH . 'themes/');
+        define('PLUGINS_PATH', CONTENT_PATH . 'plugins/');
+        define('TRANSLATIONS_PATH', CONTENT_PATH . 'languages/');
+
 
         require_once TEST_SERVER_PATH . 'config.php';
 
