@@ -4,30 +4,52 @@
     <testsuites>
 
         <testsuite name="all">
-            <directory>installer/test-installer.php</directory>
+            <file>installer/test-installer.php</file>
+            <file>installer/test-clean.php</file>
 
-            <directory>frontend/test-user.php</directory>
-            <directory>frontend/test-contact.php</directory>
-            <directory>frontend/test-page.php</directory>
+            <file>frontend/test-user.php</file>
+            <file>frontend/test-contact.php</file>
+            <file>frontend/test-page.php</file>
+            <file>frontend/test-items.php</file>
+            <file>frontend/test-search.php</file>
 
         </testsuite>
 
         <testsuite name="installer">
-            <directory>installer/test-installer.php</directory>
+            <file>installer/test-installer.php</file>
+            <file>installer/test-clean.php</file>
+        </testsuite>
+
+        <testsuite name="clean">
+            <file>installer/test-clean.php</file>
         </testsuite>
 
         <testsuite name="frontend">
-            <directory>frontend/test-user.php</directory>
-            <directory>frontend/test-contact.php</directory>
-            <directory>frontend/test-page.php</directory>
+            <file>frontend/test-user.php</file>
+            <file>frontend/test-contact.php</file>
+            <file>frontend/test-page.php</file>
+            <file>frontend/test-items.php</file>
+            <file>frontend/test-search.php</file>
         </testsuite>
 
-        <testsuite name="items">
-            <directory>frontend/test-items.php</directory>
+        <testsuite name="fe-user">
+            <file>frontend/test-user.php</file>
         </testsuite>
 
-        <testsuite name="search">
-            <directory>frontend/test-search.php</directory>
+        <testsuite name="fe-contact">
+            <file>frontend/test-contact.php</file>
+        </testsuite>
+
+        <testsuite name="fe-page">
+            <file>frontend/test-page.php</file>
+        </testsuite>
+
+        <testsuite name="fe-items">
+            <file>frontend/test-items.php</file>
+        </testsuite>
+
+        <testsuite name="fe-search">
+            <file>frontend/test-search.php</file>
         </testsuite>
 
     </testsuites>
