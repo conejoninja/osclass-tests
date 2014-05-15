@@ -121,8 +121,8 @@ class TestSearch extends OsclassTestFrontend
         $this->click("xpath=//button[text()='Apply']");
         $this->waitForPageToLoad("30000");
         $count = $this->getXpathCount("//li[contains(@class,'listing-card')]");
-        //$this->assertTrue($count == 9 , "Search by [ Show only items with pictures ].");
-        $this->assertTrue($this->isTextPresent("1 - 10 of 10 listings"));
+        $this->assertTrue($count == 9 , "Search by [ Show only items with pictures ].");
+        //$this->assertTrue($this->isTextPresent("1 - 9 of 9 listings"));
 
     }
 

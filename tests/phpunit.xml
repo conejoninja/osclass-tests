@@ -52,6 +52,19 @@
             <file>frontend/test-search.php</file>
         </testsuite>
 
+        <testsuite name="admin-all">
+            <file>admin/test-page.php</file>
+            <file>admin/test-users.php</file>
+        </testsuite>
+
+        <testsuite name="adm-page">
+            <file>admin/test-page.php</file>
+        </testsuite>
+
+        <testsuite name="adm-user">
+            <file>admin/test-users.php</file>
+        </testsuite>
+
     </testsuites>
 
 </phpunit>
