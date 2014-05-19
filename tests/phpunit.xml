@@ -55,6 +55,12 @@
         <testsuite name="admin-all">
             <file>admin/test-page.php</file>
             <file>admin/test-users.php</file>
+            <file>admin/test-theme.php</file>
+            <file>admin/test-categories.php</file>
+            <file>admin/test-csrf.php</file>
+            <file>admin/test-cfields.php</file>
+            <file>admin/test-email.php</file>
+            <file>admin/test-item.php</file>
         </testsuite>
 
         <testsuite name="adm-page">
@@ -63,6 +69,30 @@
 
         <testsuite name="adm-user">
             <file>admin/test-users.php</file>
+        </testsuite>
+
+        <testsuite name="adm-theme">
+            <file>admin/test-theme.php</file>
+        </testsuite>
+
+        <testsuite name="adm-categories">
+            <file>admin/test-categories.php</file>
+        </testsuite>
+
+        <testsuite name="adm-csrf">
+            <file>admin/test-csrf.php</file>
+        </testsuite>
+
+        <testsuite name="adm-cfields">
+            <file>admin/test-cfields.php</file>
+        </testsuite>
+
+        <testsuite name="adm-email">
+            <file>admin/test-email.php</file>
+        </testsuite>
+
+        <testsuite name="adm-item">
+            <file>admin/test-item.php</file>
         </testsuite>
 
     </testsuites>
