@@ -65,6 +65,7 @@
             <file>admin/test-market.php</file>
             <file>admin/test-moderator.php</file>
             <file>admin/test-plugin.php</file>
+            <file>admin/test-reported.php</file>
         </testsuite>
 
         <testsuite name="adm-page">
@@ -113,6 +114,10 @@
 
         <testsuite name="adm-plugin">
             <file>admin/test-plugin.php</file>
+        </testsuite>
+
+        <testsuite name="adm-reported">
+            <file>admin/test-reported.php</file>
         </testsuite>
 
     </testsuites>
