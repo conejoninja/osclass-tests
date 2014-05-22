@@ -62,6 +62,7 @@
             <file>admin/test-email.php</file>
             <file>admin/test-item.php</file>
             <file>admin/test-language.php</file>
+            <file>admin/test-market.php</file>
         </testsuite>
 
         <testsuite name="adm-page">
@@ -98,6 +99,10 @@
 
         <testsuite name="adm-language">
             <file>admin/test-language.php</file>
+        </testsuite>
+
+        <testsuite name="adm-market">
+            <file>admin/test-market.php</file>
         </testsuite>
 
     </testsuites>
