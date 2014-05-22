@@ -63,6 +63,7 @@
             <file>admin/test-item.php</file>
             <file>admin/test-language.php</file>
             <file>admin/test-market.php</file>
+            <file>admin/test-moderator.php</file>
         </testsuite>
 
         <testsuite name="adm-page">
@@ -103,6 +104,10 @@
 
         <testsuite name="adm-market">
             <file>admin/test-market.php</file>
+        </testsuite>
+
+        <testsuite name="adm-moderator">
+            <file>admin/test-moderator.php</file>
         </testsuite>
 
     </testsuites>
