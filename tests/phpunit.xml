@@ -67,6 +67,7 @@
             <file>admin/test-plugin.php</file>
             <file>admin/test-reported.php</file>
             <file>admin/test-settings.php</file>
+            <file>admin/test-stats.php</file>
         </testsuite>
 
         <testsuite name="adm-page">
@@ -123,6 +124,10 @@
 
         <testsuite name="adm-settings">
             <file>admin/test-settings.php</file>
+        </testsuite>
+
+        <testsuite name="adm-stats">
+            <file>admin/test-stats.php</file>
         </testsuite>
 
     </testsuites>
