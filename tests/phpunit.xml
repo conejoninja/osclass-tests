@@ -66,6 +66,7 @@
             <file>admin/test-moderator.php</file>
             <file>admin/test-plugin.php</file>
             <file>admin/test-reported.php</file>
+            <file>admin/test-settings.php</file>
         </testsuite>
 
         <testsuite name="adm-page">
@@ -118,6 +119,10 @@
 
         <testsuite name="adm-reported">
             <file>admin/test-reported.php</file>
+        </testsuite>
+
+        <testsuite name="adm-settings">
+            <file>admin/test-settings.php</file>
         </testsuite>
 
     </testsuites>
