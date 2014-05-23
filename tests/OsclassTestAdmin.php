@@ -74,5 +74,86 @@ class OsclassTestAdmin extends OsclassTest
         return $item['pk_i_id'];
     }
 
+    function _loadItems() {
+        require TEST_ASSETS_PATH . 'ItemData.php';
+
+        $old_reg_user_port = osc_get_preference('reg_user_post');
+        $old_items_wait_time = osc_get_preference('items_wait_time');
+        $old_enabled_recaptcha_items = osc_get_preference('enabled_recaptcha_items');
+        $old_moderate_items = osc_get_preference('moderate_items');
+
+        osc_set_preference('reg_user_post', 0);
+        osc_set_preference('items_wait_time', 0);
+        osc_set_preference('enabled_recaptcha_items', 0);
+        osc_set_preference('moderate_items', -1);
+
+        foreach($aData as $item){
+            $this->_insertItem(  $item['parentCatId'], $item['catId'], $item['title'],
+                $item['description'], $item['price'],
+                $item['regionId'], $item['cityId'],  $item['cityArea'],
+                $item['photo'], $item['contactName'],
+                TEST_USER_EMAIL);
+        }
+
+        osc_set_preference('reg_user_post', $old_reg_user_port);
+        osc_set_preference('items_wait_time', $old_items_wait_time);
+        osc_set_preference('enabled_recaptcha_items', $old_enabled_recaptcha_items);
+        osc_set_preference('moderate_items', $old_moderate_items);
+
+
+    }
+
+    // TODO MERGE THIS WITH _addItem AND DO IT ON THE ADMIN SIDE
+    protected  function _insertItem($parentCat, $cat, $title, $description, $price, $regionId, $cityId, $cityArea, $aPhotos, $user = null, $email = null , $logged = 0)
+    {
+
+        $this->open( osc_base_url() );
+        $this->click("link=Publish your ad for free");
+        $this->waitForPageToLoad("30000");
+        $this->select("id=catId", "label=regexp:\\s*".$cat);
+        sleep(2);
+        $this->type("titleen_US", $title);
+        $this->type("descriptionen_US", $description);
+        $this->type("price", "12".osc_locale_thousands_sep()."34".osc_locale_thousands_sep()."56".osc_locale_dec_point()."78".osc_locale_dec_point()."90");
+        $this->fireEvent("price", "blur");
+        sleep(2);
+        $this->assertTrue($this->getValue("price")=="123456".osc_locale_dec_point()."78", "Check price correction input");
+        $this->type("price", $price);
+        $this->select("currency", "label=Euro €");
+        if($regionId!=NULL) {
+            $this->select("countryId", "label=Spain");
+            $this->type('id=region', $regionId);
+            $this->type('id=city', $cityId);
+        }
+        if($cityArea==NULL) {
+            $this->type("cityArea", "my area");
+        } else {
+            $this->type("cityArea", $cityArea);
+        }
+        $this->type("address", "my address");
+        if( count($aPhotos) > 0 ) {
+            sleep(2);
+
+            $this->chooseOkOnNextConfirmation();
+            $this->type("qqfile", TEST_ASSETS_PATH . $aPhotos[0]);
+            sleep(4);
+            for($k=1;$k<count($aPhotos);$k++) {
+                $this->type("qqfile", TEST_ASSETS_PATH . $aPhotos[$k]);
+                sleep(4);
+            }
+        }
+
+        if($user!==null) {
+            $this->type("contactName" , $user);
+        }
+        if($email!==null) {
+            $this->type("contactEmail", $email);
+        }
+
+        $this->click("//button[@type='submit']");
+        $this->chooseOkOnNextConfirmation();
+        $this->waitForPageToLoad("30000");
+    }
+
 
 }

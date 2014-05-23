@@ -13,6 +13,22 @@
             <file>frontend/test-items.php</file>
             <file>frontend/test-search.php</file>
 
+            <file>admin/test-page.php</file>
+            <file>admin/test-users.php</file>
+            <file>admin/test-theme.php</file>
+            <file>admin/test-categories.php</file>
+            <file>admin/test-csrf.php</file>
+            <file>admin/test-cfields.php</file>
+            <file>admin/test-email.php</file>
+            <file>admin/test-item.php</file>
+            <file>admin/test-language.php</file>
+            <file>admin/test-market.php</file>
+            <file>admin/test-moderator.php</file>
+            <file>admin/test-plugin.php</file>
+            <file>admin/test-reported.php</file>
+            <file>admin/test-stats.php</file>
+            <file>admin/test-tools.php</file>
+            <file>admin/test-settings.php</file>
         </testsuite>
 
         <testsuite name="installer">
@@ -66,8 +82,9 @@
             <file>admin/test-moderator.php</file>
             <file>admin/test-plugin.php</file>
             <file>admin/test-reported.php</file>
-            <file>admin/test-settings.php</file>
             <file>admin/test-stats.php</file>
+            <file>admin/test-tools.php</file>
+            <file>admin/test-settings.php</file>
         </testsuite>
 
         <testsuite name="adm-page">
@@ -128,6 +145,10 @@
 
         <testsuite name="adm-stats">
             <file>admin/test-stats.php</file>
+        </testsuite>
+
+        <testsuite name="adm-tools">
+            <file>admin/test-tools.php</file>
         </testsuite>
 
     </testsuites>
