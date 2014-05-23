@@ -6,7 +6,7 @@ class TestAdminItem extends OsclassTestAdmin
     function testInsertItem()
     {
         $this->_login();
-        $this->_insertItem() ;
+        $this->_insertItem2() ;
         $this->_viewMedia_NoMedia();
         $this->_viewComments_NoComments();
         $this->_deactivate();
@@ -46,7 +46,7 @@ class TestAdminItem extends OsclassTestAdmin
     }
 
 
-    private function _insertItem($bPhotos = FALSE, $expiration_days = null )
+    private function _insertItem2($bPhotos = FALSE, $expiration_days = null )
     {
         $this->open( osc_admin_base_url(true) );
         $this->click("xpath=//a[@id='items']");
@@ -228,7 +228,7 @@ class TestAdminItem extends OsclassTestAdmin
     private function _insertItemAndComments()
     {
         // insert item
-        $this->_insertItem() ;
+        $this->_insertItem2() ;
 
         $mItem = new Item();
 
@@ -309,7 +309,7 @@ class TestAdminItem extends OsclassTestAdmin
     private function _insertItemAndMedia()
     {
         // insert item
-        $this->_insertItem( TRUE ) ;
+        $this->_insertItem2( TRUE ) ;
 
         // test oc-admin
         //$this->loginWith();
