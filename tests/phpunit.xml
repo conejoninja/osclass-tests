@@ -36,6 +36,10 @@
             <file>installer/test-clean.php</file>
         </testsuite>
 
+        <testsuite name="installer-only">
+            <file>installer/test-installer.php</file>
+        </testsuite>
+
         <testsuite name="clean">
             <file>installer/test-clean.php</file>
         </testsuite>

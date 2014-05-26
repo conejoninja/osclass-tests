@@ -5,7 +5,7 @@ define('MAX_FIELDS', 8);
 class TestCFields extends OsclassTestAdmin
 {
 
-    function _testCustomAdd()
+    function testCustomAdd()
     {
         $this->_login();
         $this->open( osc_admin_base_url(true) );
@@ -149,7 +149,7 @@ class TestCFields extends OsclassTestAdmin
     }
 
 
-    function _testCustomEdit()
+    function testCustomEdit()
     {
         $this->_login();
 
@@ -174,14 +174,14 @@ class TestCFields extends OsclassTestAdmin
         }
     }
 
-    function _testCustomOnWebsite()
+    function testCustomOnWebsite()
     {
         $this->_login();
         $this->_customOnFrontEnd();
         $this->_customOnAdminPanel();
     }
 
-    function _testCustomSearch()
+    function testCustomSearch()
     {
 //        search via custom fields
         $this->_login();
