@@ -89,7 +89,6 @@ class OsclassTestFrontend extends OsclassTest
             for($k=0;$k<count($aPhotos);$k++) {
                 $this->type("qqfile", TEST_ASSETS_PATH . $aPhotos[$k]);
                 sleep(4);
-                $this->type("lol", "lol");
             }
         }
 
