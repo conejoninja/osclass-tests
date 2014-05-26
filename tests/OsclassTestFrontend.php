@@ -85,13 +85,11 @@ class OsclassTestFrontend extends OsclassTest
         $this->type("address", "my address");
         if( count($aPhotos) > 0 ) {
             sleep(2);
-
             $this->chooseOkOnNextConfirmation();
-            $this->type("qqfile", TEST_ASSETS_PATH . $aPhotos[0]);
-            sleep(4);
-            for($k=1;$k<count($aPhotos);$k++) {
+            for($k=0;$k<count($aPhotos);$k++) {
                 $this->type("qqfile", TEST_ASSETS_PATH . $aPhotos[$k]);
                 sleep(4);
+                $this->type("lol", "lol");
             }
         }
 

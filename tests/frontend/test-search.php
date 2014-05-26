@@ -3,7 +3,7 @@ require_once dirname(dirname(__FILE__)).'/OsclassTestFrontend.php';
 class TestSearch extends OsclassTestFrontend
 {
 
-    public function _testLoadItems()
+    public function testLoadItems()
     {
 
         osc_set_preference('reg_user_post', 0);
