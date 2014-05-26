@@ -3,7 +3,7 @@ require_once dirname(dirname(__FILE__)).'/OsclassTestFrontend.php';
 class TestSearch extends OsclassTestFrontend
 {
 
-    public function testLoadItems()
+    public function _testLoadItems()
     {
 
         osc_set_preference('reg_user_post', 0);
@@ -27,7 +27,7 @@ class TestSearch extends OsclassTestFrontend
         }
     }
 
-    function testNewly()
+    function _testNewly()
     {
         $this->open( osc_search_url() );
         $this->click("link=Newly listed");
@@ -38,7 +38,7 @@ class TestSearch extends OsclassTestFrontend
     }
 
 
-    function testLowerPrice()
+    function _testLowerPrice()
     {
         $this->open( osc_search_url() );
         $this->click("link=Lower price first");
@@ -49,7 +49,7 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue(1==preg_match('/German Training Coordination Agent \(Barcelona centre\)/', $text), "Search, order by Lower");
     }
 
-    function testHigherPrice()
+    function _testHigherPrice()
     {
         $this->open( osc_search_url() );
         $this->click("link=Higher price first");
@@ -60,7 +60,7 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue(1==preg_match('/Avion ULM TL96 cerca de Biniagual/', $text), "Search, order by Higher ");
     }
 
-    function testSPattern()
+    function _testSPattern()
     {
         $this->open( osc_search_url() );
         $this->type("sPattern", "Moto");
@@ -70,7 +70,7 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue($count == 4 , "Search by sPattern.");
     }
 
-    function testSPatternCombi1()
+    function _testSPatternCombi1()
     {
         $this->open( osc_search_url() );
         $this->type("sPattern", "Moto");
@@ -84,7 +84,7 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue($count == 2 , "Search by sPattern & pMin - pMax.");
     }
 
-    function testSPatternCombi2()
+    function _testSPatternCombi2()
     {
         $this->open( osc_search_url() );
         $this->type("sPattern", "Moto");
@@ -95,7 +95,7 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue($count == 3 , "Search by Moto + sCity = Balsareny.");
     }
 
-    function testSPatternCombi3()
+    function _testSPatternCombi3()
     {
         $this->open( osc_search_url() );
         $this->type("sCity" , "Balsareny");
@@ -105,7 +105,7 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue($count == 4 , "Search by sCity = Balsareny.");
     }
 
-    function testSPatternCombi4() // TODO FIXME
+    function _testSPatternCombi4() // TODO FIXME
     {
         $this->open( osc_base_url(true) . "?page=search" );
         $this->click("xpath=//a[@id='cat_1']");
@@ -126,7 +126,7 @@ class TestSearch extends OsclassTestFrontend
 
     }
 
-    function testSearchUserItems()
+    function _testSearchUserItems()
     {
         include TEST_ASSETS_PATH . 'ItemData.php';
         osc_set_preference('enabled_user_validation', 1);
@@ -152,7 +152,7 @@ class TestSearch extends OsclassTestFrontend
         $this->_removeUserByEmail('testusersearch@osclass.org');
     }
 
-    function testLocations()
+    function _testLocations()
     {
         $searchCountry  = osc_search_url(array('sCountry'   => 'ES'));
         $this->open( $searchCountry );
@@ -175,7 +175,7 @@ class TestSearch extends OsclassTestFrontend
     }
 
 
-    function testCreateAlert()
+    function _testCreateAlert()
     {
         $this->_createAlert('foobar@invalid_email', false);
         $this->_createAlert(TEST_USER_EMAIL);
@@ -183,7 +183,7 @@ class TestSearch extends OsclassTestFrontend
         Alerts::newInstance()->delete(array('s_email' => TEST_USER_EMAIL));
     }
 
-    function testExpiredItems()
+    function _testExpiredItems()
     {
         // expire one category (Language Classes)
         $mCategory = new Category();
@@ -212,7 +212,7 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue($this->isTextPresent("There are no results matching"), "search frontend - there are items ERROR" );
     }
 
-    function testHighligthResults()
+    function _testHighligthResults()
     {
         $this->open(osc_search_url() );
         $this->type("sPattern", "http://www.osclass.org");
@@ -240,7 +240,7 @@ class TestSearch extends OsclassTestFrontend
     }
 
 
-    function testInputEscapeValue()
+    function _testInputEscapeValue()
     {
         $pattern = 'fooo " bar';
 
@@ -262,7 +262,7 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue( '99' == $this->getEval("var win = this.browserbot.getCurrentWindow(); win.document.getElementsByName('sPriceMax')[0].value"), "Correct escape input values sPriceMax" );
     }
 
-    public function testRemoveLoadedItems()
+    public function _testRemoveLoadedItems()
     {
         $aItems = Item::newInstance()->findByEmail(TEST_USER_EMAIL) ;
         foreach( $aItems as $item ) {
