@@ -105,7 +105,7 @@ class TestSearch extends OsclassTestFrontend
         $this->assertTrue($count == 4 , "Search by sCity = Balsareny.");
     }
 
-    function _testSPatternCombi4() // TODO FIXME
+    function testSPatternCombi4() // TODO FIXME
     {
         $this->open( osc_base_url(true) . "?page=search" );
         $this->click("xpath=//a[@id='cat_1']");
@@ -178,7 +178,6 @@ class TestSearch extends OsclassTestFrontend
     function testCreateAlert()
     {
         $this->_createAlert('foobar@invalid_email', false);
-
         $this->_createAlert(TEST_USER_EMAIL);
 
         Alerts::newInstance()->delete(array('s_email' => TEST_USER_EMAIL));
@@ -254,8 +253,8 @@ class TestSearch extends OsclassTestFrontend
         $this->waitForPageToLoad("30000");
 
         // value
-        $_1 = $this->getEval("var win = this.browserbot.getCurrentWindow(); win.document.getElementsByName('sPattern')[0].value");
-        echo "$_1";
+        //$_1 = $this->getEval("var win = this.browserbot.getCurrentWindow(); win.document.getElementsByName('sPattern')[0].value");
+        //echo "$_1";
 
         $this->assertTrue( $pattern == $this->getEval("var win = this.browserbot.getCurrentWindow(); win.document.getElementsByName('sPattern')[0].value"), "Correct escape input values sPattern" );
         $this->assertTrue( $pattern ==$this->getEval("var win = this.browserbot.getCurrentWindow(); win.document.getElementsByName('sCity')[0].value"), "Correct escape input values sCity" );

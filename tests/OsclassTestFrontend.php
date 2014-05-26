@@ -110,18 +110,17 @@ class OsclassTestFrontend extends OsclassTest
 
     function _createAlert($email, $success = true)
     {
-        // search only items with picture
-        $this->open( osc_search_url() );
+        $this->open(osc_search_url());
         $this->waitForPageToLoad("10000");
 
-        // create alert invalid email
-        $this->click('alert_email');
         $this->type('alert_email', $email);
         $this->click("xpath=//form[@id='sub_alert']/button");
-        if( !$success ) {
-            // NO MESSAGE OF INVALID EMAIL
-            //$this->assertTrue($this->getAlert() == 'Invalid email address', 'Search - create alert');
-        }
+        sleep(3);
+        //if($success) {
+            $this->getAlert();
+            //$this->chooseOkOnNextAlert();
+        //}
+
         $aAuxAlert = Alerts::newInstance()->findByEmail($email);
         if( $success ) {
             $this->assertTrue(count($aAuxAlert) == 1, 'Search - create alert');
