@@ -3,7 +3,7 @@ require_once dirname(dirname(__FILE__)).'/OsclassTestAdmin.php';
 class TestAdminTheme extends OsclassTestAdmin
 {
 
-    function _testAddTheme()
+    function testAddTheme()
     {
         $this->_login();
 
@@ -24,7 +24,7 @@ class TestAdminTheme extends OsclassTestAdmin
         }
     }
 
-    function _testActivateTheme()
+    function testActivateTheme()
     {
         $this->_login();
 
