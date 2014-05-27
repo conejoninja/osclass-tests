@@ -117,31 +117,31 @@ class TestAdminReported extends OsclassTestAdmin
                 case 'spam':
                     // sort by
                     $this->click("//a[@id='order_spam']");
-                    sleep(1);
+                    sleep(3);
                     $new_xpath = str_replace('_ACTION_', 'Clear Spam', $new_xpath);
                     $this->click($new_xpath);
-                    sleep(1);
+                    sleep(3);
                     $this->assertTrue($this->isTextPresent("The listing has been unmarked as spam"), "Can't unmark spam. ERROR");
                     break;
                 case 'exp':
                     $this->click("//a[@id='order_exp']");
-                    sleep(1);
+                    sleep(3);
                     $new_xpath = str_replace('_ACTION_', 'Clear Expired', $new_xpath);
                     $this->click($new_xpath);
-                    sleep(1);
+                    sleep(3);
                     $this->assertTrue($this->isTextPresent("The listing has been unmarked as expired"), "Can't unmark spam. ERROR");
                     break;
                 case 'bad':
                     $this->click("//a[@id='order_bad']");
-                    sleep(1);
+                    sleep(3);
                     $new_xpath = str_replace('_ACTION_', 'Clear Misclassified', $new_xpath);
                     $this->click($new_xpath);
-                    sleep(1);
+                    sleep(3);
                     $this->assertTrue($this->isTextPresent("The listing has been unmarked as bad"), "Can't unmark spam. ERROR");
                     break;
                 case 'all':
                     $this->click("//a[@id='order_date']");
-                    sleep(1);
+                    sleep(3);
                     $new_xpath = str_replace('_ACTION_', 'Clear All', $new_xpath);
                     $this->click($new_xpath);
                     sleep(15);
