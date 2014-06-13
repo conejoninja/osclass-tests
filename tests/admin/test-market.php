@@ -93,6 +93,8 @@ class TestAdminMarket extends OsclassTestAdmin
         }
 
         // CHECK IT'S ON THE INSTALLED LIST
+        $this->open( osc_admin_base_url(true) ) ;
+        $this->waitForPageToLoad("10000");
         $this->click("//a[@id='plugins_manage']");
         $this->waitForPageToLoad("10000");
         $this->assertTrue($this->isTextPresent(@$info['plugin_name']), "Plugin does not appear on the list");
