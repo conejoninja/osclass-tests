@@ -33,8 +33,8 @@ class TestInstallerSuite extends OsclassTestInstaller
         $this->assertEquals("Información de la base de datos", $this->getText("css=h2.target"));
         $this->click("name=submit");
         $this->waitForPageToLoad("300000");
-        $this->type("id=s_passwd", TEST_ADMIN_USER);
-        $this->type("id=admin_user", TEST_ADMIN_PASS);
+        $this->type("id=admin_user", TEST_ADMIN_USER);
+        $this->type("id=s_passwd", TEST_ADMIN_PASS);
         $this->type("id=webtitle", "Testing");
         $this->type("id=email", TEST_ADMIN_EMAIL);
         $this->select("id=country_select", "label=Spain");
@@ -72,8 +72,8 @@ class TestInstallerSuite extends OsclassTestInstaller
         $this->type("id=admin_password", TEST_DB_PASS);
         $this->click("name=submit");
         $this->waitForPageToLoad("300000");
-        $this->type("id=s_passwd", TEST_ADMIN_USER);
-        $this->type("id=admin_user", TEST_ADMIN_PASS);
+        $this->type("id=admin_user", TEST_ADMIN_USER);
+        $this->type("id=s_passwd", TEST_ADMIN_PASS);
         $this->type("id=webtitle", "Testing");
         $this->type("id=email", TEST_ADMIN_EMAIL);
         $this->select("id=country_select", "label=Spain");
