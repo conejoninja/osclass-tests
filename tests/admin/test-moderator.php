@@ -3,7 +3,7 @@ require_once dirname(dirname(__FILE__)).'/OsclassTestAdmin.php';
 class TestAdminModerator extends OsclassTestAdmin
 {
 
-    function testModeratorMenu()
+    function _testModeratorMenu()
     {
         // insert new moderator admin
         Admin::newInstance()->insert(array(
