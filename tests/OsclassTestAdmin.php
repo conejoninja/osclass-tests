@@ -14,7 +14,6 @@ class OsclassTestAdmin extends OsclassTest
         $this->type("id=user_pass", $pass);
         $this->click("//input[@type='submit']");
         $this->waitForPageToLoad("30000");
-        $this->type("contactName" , "contact name");
     }
 
     protected function _logout()

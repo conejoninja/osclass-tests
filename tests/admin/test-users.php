@@ -62,7 +62,8 @@ class TestAdminUser extends OsclassTestAdmin
             }
 
             $this->click("//input[@type='submit']");
-            $this->waitForPageToLoad("10000");
+            $this->waitForPageToLoad("30000");
+            sleep(1);
 
             $this->assertTrue( $this->isTextPresent("Users' settings have been updated") , "Can't update user settings. ERROR");
 
@@ -92,7 +93,7 @@ class TestAdminUser extends OsclassTestAdmin
         $this->click("//a[@id='bulk-actions-submit']");
 
         $this->waitForPageToLoad("10000");
-        $this->assertTrue( $this->isTextPresent("One user has been deactivated") , "Deactivate user bulk action");
+        $this->assertTrue( $this->isTextPresent("2 users have been deactivated") , "Deactivate user bulk action");
 
         $this->click("//a[@id='users_manage']");
         $this->waitForPageToLoad("10000");
@@ -101,7 +102,7 @@ class TestAdminUser extends OsclassTestAdmin
         $this->click("//input[@id='bulk_apply']");
         $this->click("//a[@id='bulk-actions-submit']");
         $this->waitForPageToLoad("10000");
-        $this->assertTrue( $this->isTextPresent("Activation email sent to one user") , "Resend ACT user bulk action");
+        $this->assertTrue( $this->isTextPresent("Activation email sent to 2 users") , "Resend ACT user bulk action");
 
         $this->click("//a[@id='users_manage']");
         $this->waitForPageToLoad("10000");
@@ -110,7 +111,7 @@ class TestAdminUser extends OsclassTestAdmin
         $this->click("//input[@id='bulk_apply']");
         $this->click("//a[@id='bulk-actions-submit']");
         $this->waitForPageToLoad("10000");
-        $this->assertTrue( $this->isTextPresent("One user has been activated") , "Activate user bulk action");
+        $this->assertTrue( $this->isTextPresent("2 users have been activated") , "Activate user bulk action");
 
         $this->click("//a[@id='users_manage']");
         $this->waitForPageToLoad("10000");
@@ -119,7 +120,7 @@ class TestAdminUser extends OsclassTestAdmin
         $this->click("//input[@id='bulk_apply']");
         $this->click("//a[@id='bulk-actions-submit']");
         $this->waitForPageToLoad("10000");
-        $this->assertTrue( $this->isTextPresent("One user has been blocked") , "Block user bulk action");
+        $this->assertTrue( $this->isTextPresent("2 users have been blocked") , "Block user bulk action");
 
         $this->click("//a[@id='users_manage']");
         $this->waitForPageToLoad("10000");
@@ -128,7 +129,7 @@ class TestAdminUser extends OsclassTestAdmin
         $this->click("//input[@id='bulk_apply']");
         $this->click("//a[@id='bulk-actions-submit']");
         $this->waitForPageToLoad("10000");
-        $this->assertTrue( $this->isTextPresent("One user has been unblocked") , "Unblock user bulk action");
+        $this->assertTrue( $this->isTextPresent("2 users have been unblocked") , "Unblock user bulk action");
 
         $this->click("//a[@id='users_manage']");
         $this->waitForPageToLoad("10000");
@@ -137,7 +138,7 @@ class TestAdminUser extends OsclassTestAdmin
         $this->click("//input[@id='bulk_apply']");
         $this->click("//a[@id='bulk-actions-submit']");
         $this->waitForPageToLoad("10000");
-        $this->assertTrue( $this->isTextPresent("One user has been deleted") , "Delete user bulk action");
+        $this->assertTrue( $this->isTextPresent("2 users have been deleted") , "Delete user bulk action");
 
 
 
@@ -442,7 +443,6 @@ class TestAdminUser extends OsclassTestAdmin
         $this->click("//button[text()='Publish']");
         $this->waitForPageToLoad("30000");
 
-
         // log in website
         $this->open( osc_base_url(true) );
         $this->click("login_open");
@@ -456,7 +456,7 @@ class TestAdminUser extends OsclassTestAdmin
         // check username at left up corner
         $this->assertTrue($this->isTextPresent('real name user'),"Login at website");
         // check autofill locations when user add nen advert
-        $this->open(osc_base_url(true) . '?page=item&action=item_add');
+        $this->open(osc_item_post_url()); //osc_base_url(true) . '?page=item&action=item_add');
         $this->waitForPageToLoad("30000");
         //sleep(30);
         // TODO ENABLE THIS WHEN FIXED
@@ -468,7 +468,7 @@ class TestAdminUser extends OsclassTestAdmin
         $this->assertTrue( ($this->getValue('id=address') == 'address user'), 'Address auto fill');
         sleep(3);
         // alerts
-        $this->open(osc_base_url(true) . '?page=search');
+        $this->open(osc_search_url());//osc_base_url(true) . '?page=search');
         $this->assertTrue( ($this->getValue('id=alert_email') == 'test@mail.com' ), 'Email inserted for alert');
         // contact publisher (need add one item)
         $this->open(osc_base_url(true) . '?page=search');
@@ -562,6 +562,7 @@ class TestAdminUser extends OsclassTestAdmin
 
     private function _checkWebsite_enabled_users($bool)
     {
+        $this->_logout();
         $this->open( osc_user_login_url() );
         if($bool == 1) {
             $is_present_email = $this->isElementPresent('id=email');
@@ -580,31 +581,39 @@ class TestAdminUser extends OsclassTestAdmin
         } else if ($bool == 0) {
             $this->assertTrue($this->isTextPresent('Users not enabled'), "Register" );
         }
+        $this->_login();
     }
 
     private function _checkWebsite_enabled_user_validation($bool)
     {
-        $this->open( osc_register_account_url() );
+        $this->_logout();
+        $this->open(osc_base_url());
+        $this->click("link=Register for a free account");
+        $this->waitForPageToLoad("30000");
         $this->type('id=s_name', "William Adama");
         $this->type('id=s_password', "galactica");
         $this->type('id=s_password2', "galactica");
         $this->type('id=s_email', "testing+testb@osclass.org");
         $this->click("xpath=//button[text()='Create']");
-        $this->waitForPageToLoad("10000");
+        $this->waitForPageToLoad("30000");
+        sleep(20);
 
         if($bool == 1) {
             $this->assertTrue( $this->isTextPresent('The user has been created. An activation email has been sent'), "No-Validate user" );
         } else if ($bool == 0) {
-            $this->assertTrue($this->isTextPresent('Your account has been created successfully'), "Validate user" );
+            $this->assertTrue($this->isTextPresent('Your account has been created successfully'), "Validate user " );
         }
 
         $user = User::newInstance()->findByEmail("testing+testb@osclass.org");
         User::newInstance()->deleteUser($user['pk_i_id']);
+        $this->_login();
     }
 
     private function _checkWebsite_enabled_user_registration($bool)
     {
+        $this->_logout();
         $this->open( osc_register_account_url() );
+        $this->waitForPageToLoad("30000");
         if($bool == 1) {
             $is_present_email = $this->isElementPresent('id=s_name');
             $is_present_pass  = $this->isElementPresent('id=s_password');
@@ -613,6 +622,7 @@ class TestAdminUser extends OsclassTestAdmin
         } else if ($bool == 0) {
             $this->assertTrue($this->isTextPresent('User registration is not enabled'), "Register user" );
         }
+        $this->_login();
     }
 
 
