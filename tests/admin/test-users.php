@@ -24,7 +24,9 @@ class TestAdminUser extends OsclassTestAdmin
     {
         $this->_login();
         $this->_insertUser();
+        $this->_logout();
         $this->_extraValidations();
+        $this->_login();
         $this->_deleteUser();
         $this->_logout();
     }

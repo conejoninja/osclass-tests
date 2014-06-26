@@ -3,16 +3,16 @@ require_once dirname(dirname(__FILE__)).'/OsclassTestAdmin.php';
 class TestAdminModerator extends OsclassTestAdmin
 {
 
-    function _testModeratorMenu()
+    function testModeratorMenu()
     {
         // insert new moderator admin
-        Admin::newInstance()->insert(array(
+        User::newInstance()->insert(array(
             's_name' => 'Test Admin',
             's_username' => 'testmoderator',
             's_password' => sha1(TEST_ADMIN_PASS),
             's_secret' => 'mvqdnrpt',
             's_email' => 'testing+moderator@osclass.org',
-            'b_moderator' => 1
+            'e_permission' => 'MODERATOR'
         ));
 
         $this->_login( 'testmoderator', TEST_ADMIN_PASS) ;
@@ -55,7 +55,7 @@ class TestAdminModerator extends OsclassTestAdmin
         $this->assertFalse($this->isTextPresent("You don't have enough permissions"), "Don't show the text: 'Don't have enough permissions'" ) ;
 
         // remove user testmoderator!
-        Admin::newInstance()->delete(array('s_username' => 'testmoderator') );
+        User::newInstance()->delete(array('s_username' => 'testmoderator') );
     }
     
 }
