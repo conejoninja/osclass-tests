@@ -285,6 +285,8 @@ class TestCFields extends OsclassTestAdmin
         osc_set_preference('reg_user_post', 0);
         osc_set_preference('moderate_items', -1);
 
+        $this->_logout();
+
         // check if custom fields appears at website
         $this->open( osc_base_url(true) );
         $this->waitForPageToLoad("10000");
@@ -340,6 +342,8 @@ class TestCFields extends OsclassTestAdmin
         $this->waitForPageToLoad("10000");
 
         $this->assertTrue($this->isTextPresent("Your listing has been published","Item published") );
+
+        $this->_login();
 
         // remove item
         Item::newInstance()->delete( array('s_contact_email' => 'foobar@mail.com') ) ;
