@@ -93,7 +93,7 @@ class TestAdminUser extends OsclassTestAdmin
         $this->click("//a[@id='bulk-actions-submit']");
 
         $this->waitForPageToLoad("10000");
-        $this->assertTrue( $this->isTextPresent("2 users have been deactivated") , "Deactivate user bulk action");
+        $this->assertTrue( $this->isTextPresent("One user has been deactivated") , "Deactivate user bulk action");
 
         $this->click("//a[@id='users_manage']");
         $this->waitForPageToLoad("10000");
@@ -102,7 +102,7 @@ class TestAdminUser extends OsclassTestAdmin
         $this->click("//input[@id='bulk_apply']");
         $this->click("//a[@id='bulk-actions-submit']");
         $this->waitForPageToLoad("10000");
-        $this->assertTrue( $this->isTextPresent("Activation email sent to 2 users") , "Resend ACT user bulk action");
+        $this->assertTrue( $this->isTextPresent("Activation email sent to one user") , "Resend ACT user bulk action");
 
         $this->click("//a[@id='users_manage']");
         $this->waitForPageToLoad("10000");
@@ -111,7 +111,7 @@ class TestAdminUser extends OsclassTestAdmin
         $this->click("//input[@id='bulk_apply']");
         $this->click("//a[@id='bulk-actions-submit']");
         $this->waitForPageToLoad("10000");
-        $this->assertTrue( $this->isTextPresent("2 users have been activated") , "Activate user bulk action");
+        $this->assertTrue( $this->isTextPresent("One user has been activated") , "Activate user bulk action");
 
         $this->click("//a[@id='users_manage']");
         $this->waitForPageToLoad("10000");
@@ -120,7 +120,7 @@ class TestAdminUser extends OsclassTestAdmin
         $this->click("//input[@id='bulk_apply']");
         $this->click("//a[@id='bulk-actions-submit']");
         $this->waitForPageToLoad("10000");
-        $this->assertTrue( $this->isTextPresent("2 users have been blocked") , "Block user bulk action");
+        $this->assertTrue( $this->isTextPresent("One user has been blocked") , "Block user bulk action");
 
         $this->click("//a[@id='users_manage']");
         $this->waitForPageToLoad("10000");
@@ -129,7 +129,7 @@ class TestAdminUser extends OsclassTestAdmin
         $this->click("//input[@id='bulk_apply']");
         $this->click("//a[@id='bulk-actions-submit']");
         $this->waitForPageToLoad("10000");
-        $this->assertTrue( $this->isTextPresent("2 users have been unblocked") , "Unblock user bulk action");
+        $this->assertTrue( $this->isTextPresent("One user has been unblocked") , "Unblock user bulk action");
 
         $this->click("//a[@id='users_manage']");
         $this->waitForPageToLoad("10000");
@@ -138,7 +138,7 @@ class TestAdminUser extends OsclassTestAdmin
         $this->click("//input[@id='bulk_apply']");
         $this->click("//a[@id='bulk-actions-submit']");
         $this->waitForPageToLoad("10000");
-        $this->assertTrue( $this->isTextPresent("2 users have been deleted") , "Delete user bulk action");
+        $this->assertTrue( $this->isTextPresent("One user has been deleted") , "Delete user bulk action");
 
 
 
@@ -194,6 +194,7 @@ class TestAdminUser extends OsclassTestAdmin
 
         // TEST RULE
 
+        $this->_logout();
         $this->open( osc_base_url() );
         $this->click("link=Register for a free account");
         $this->waitForPageToLoad("30000");
@@ -218,6 +219,8 @@ class TestAdminUser extends OsclassTestAdmin
 
         $this->assertTrue( ($this->isTextPresent("Your account has been created successfully") || $this->isTextPresent("The user has been created")), "Can't register email due to ban rule. ERROR");
 
+        //$this->_logout();
+        $this->_login();
         $this->_deleteUser('testok@osclass.org');
 
 

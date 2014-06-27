@@ -121,7 +121,7 @@ class TestUser extends OsclassTestFrontend
         $this->assertEquals("xThe password is incorrect", $this->getText("id=flashmessage"));
 
         // CORRECT LOGIN
-        $this->_login();
+        $this->_login(TEST_USER_EMAIL, TEST_USER_PASS);
         $this->assertEquals("Hi Test! ·", $this->getText("css=li.first.logged > span"));
     }
 
