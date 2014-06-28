@@ -105,7 +105,9 @@ class TestAdminTools extends OsclassTestAdmin
             $res = $mItem->delete(array('pk_i_id' => $item['pk_i_id']));
             //$this->assertTrue($res, 'Item deleted ok');
         }
+        $this->_logout();
         $this->_loadItems();
+        $this->_login();
 
         $this->open( osc_admin_base_url(true) );
         $this->click("//a[@id='tools_location']");
@@ -115,7 +117,7 @@ class TestAdminTools extends OsclassTestAdmin
         $complete = 0;
         $max_time_limit = 0; // Add a time limit of 10 minutes to execute this while, in other case is infinite (if the ajax to get the percent is wrong!)!
         while($complete!='100' && $max_time_limit<60) {
-            sleep(20);
+            sleep(30);
             $complete = $this->getText("//div/p/span[@id='percent']");
             $max_time_limit++;
         }

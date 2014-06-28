@@ -40,6 +40,7 @@ class TestAdminLanguage extends OsclassTestAdmin
             $this->click("//input[@type='submit']");
             $this->waitForPageToLoad("10000");
             $this->assertTrue($this->isTextPresent("The language has been installed correctly"),"Upload new language lang_es_ES_2.0.zip");
+            $this->_logout();
         }
     }
 
@@ -70,13 +71,27 @@ class TestAdminLanguage extends OsclassTestAdmin
             if( $this->_isDisabledWebsite("Spanish") ){
                 $this->_enableWebsite("Spanish");
                 $this->_checkWebsiteEnabled("Spanish");
+                $this->_logout();
+                $this->_login();
                 $this->_disableWebsite("Spanish");
+                $this->_logout();
+                $this->_login();
                 $this->_checkWebsiteDisabled("Spanish");
+                $this->_logout();
+                $this->_login();
             } else {
                 $this->_disableWebsite("Spanish");
+                $this->_logout();
+                $this->_login();
                 $this->_checkWebsiteDisabled("Spanish");
+                $this->_logout();
+                $this->_login();
                 $this->_enableWebsite("Spanish");
+                $this->_logout();
+                $this->_login();
                 $this->_checkWebsiteEnabled("Spanish");
+                $this->_logout();
+                $this->_login();
             }
 
 

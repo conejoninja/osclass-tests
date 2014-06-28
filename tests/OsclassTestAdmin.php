@@ -12,6 +12,8 @@ class OsclassTestAdmin extends OsclassTest
         $this->waitForPageToLoad("30000");
         $this->type("id=user_login", $user);
         $this->type("id=user_pass", $pass);
+        // FORCE ENGLISH ALWAYS
+        if($this->isElementPresent('id=user_language')) { $this->select('id=user_language', "English"); }
         $this->click("//input[@type='submit']");
         $this->waitForPageToLoad("30000");
     }
@@ -19,7 +21,7 @@ class OsclassTestAdmin extends OsclassTest
     protected function _logout()
     {
         $this->open(osc_admin_base_url());
-        $this->click("link=Logout");
+        $this->click("id=osc_toolbar_logout");
         $this->waitForPageToLoad("30000");
     }
 

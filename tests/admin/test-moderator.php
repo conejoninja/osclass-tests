@@ -33,19 +33,7 @@ class TestAdminModerator extends OsclassTestAdmin
         $this->assertTrue(2==$res, "2 Submenu options under id=menu_users");
 
         // try to enter to restricted zone
-        $this->open(osc_admin_base_url(true).'?page=admins');
-        $this->waitForPageToLoad("2000");
-        $this->assertTrue($this->isTextPresent("You don't have enough permissions"), "Don't have enough permissions" ) ;
-
         $this->open(osc_admin_base_url(true).'?page=items&action=settings');
-        $this->waitForPageToLoad("2000");
-        $this->assertTrue($this->isTextPresent("You don't have enough permissions"), "Don't have enough permissions" ) ;
-
-        $this->open(osc_admin_base_url(true).'?page=admins&action=edit');
-        $this->waitForPageToLoad("2000");
-        $this->assertTrue($this->isTextPresent("Edit admin"), "Don't have enough permissions" ) ;
-
-        $this->open(osc_admin_base_url(true).'?page=admins&action=add');
         $this->waitForPageToLoad("2000");
         $this->assertTrue($this->isTextPresent("You don't have enough permissions"), "Don't have enough permissions" ) ;
 
