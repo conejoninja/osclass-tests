@@ -355,8 +355,8 @@ class TestAdminItem extends OsclassTestAdmin
 
     private function _settings()
     {
-        //$this->_login();
         osc_set_preference('reg_user_post', 0);
+        $this->_logout();
         $this->_checkWebsite_reg_user_post(0);
         $this->_checkWebsite_reg_user_post(0,true);
         osc_set_preference('reg_user_post', 1);
@@ -366,11 +366,9 @@ class TestAdminItem extends OsclassTestAdmin
 
         osc_set_preference('reg_user_post', 0);
         osc_set_preference('enabled_recaptcha_items', 1);
-        $this->_login();
         $this->_checkWebsite_recaptcha(1);
         osc_set_preference('enabled_recaptcha_items', 0);
         $this->_checkWebsite_recaptcha(0);
-
 
         osc_set_preference('logged_user_item_validation', 0);
         osc_set_preference('moderate_items', 1);
@@ -413,11 +411,12 @@ class TestAdminItem extends OsclassTestAdmin
         $this->_checkWebsite_enableField_images_items('1','1');
         osc_set_preference('numImages@items', 4);
 
+        $this->_login();
+
         $mItem = new Item();
         $aItems = $mItem->listAll();
         foreach($aItems as $item) {
-            $res = $mItem->delete(array('pk_i_id' => $item['pk_i_id']));
-            //$this->assertTrue($res, 'Item deleted ok');
+            $res = $mItem->deleteByPrimaryKey($item['pk_i_id']);
         }
         $user = User::newInstance()->findByEmail(TEST_USER_EMAIL);
         User::newInstance()->deleteUser($user['pk_i_id']);
@@ -494,8 +493,7 @@ class TestAdminItem extends OsclassTestAdmin
 
     private function _loginWebsite($email = TEST_USER_EMAIL, $pass = TEST_USER_PASS)
     {
-
-        $this->open(osc_user_login_url());
+        $this->open(osc_base_url());
         $bool = $this->isElementPresent('login_open') ;
         if($bool){
             $this->click("id=login_open");
@@ -504,7 +502,6 @@ class TestAdminItem extends OsclassTestAdmin
             $this->type("id=password", $pass);
             $this->click("//button[@type='submit']");
             $this->waitForPageToLoad("30000");
-            sleep(5);
             if($this->isTextPresent("Logout")){
                 $this->logged = 1;
                 $this->assertTrue(true, "Login website");
@@ -519,7 +516,7 @@ class TestAdminItem extends OsclassTestAdmin
         $this->open( osc_base_url(true) );
         $bool = $this->isElementPresent('login_open') ;
         if(!$bool) {
-            $this->click('label=Log Out');
+            $this->click("link=Logout");
             $this->waitForPageToLoad("30000");
         }
     }
@@ -549,7 +546,7 @@ class TestAdminItem extends OsclassTestAdmin
     private function _checkWebsite_recaptcha($bool)
     {
         // spam & boots -> fill  private & public keys
-        //$this->_login();
+        $this->_login();
         $this->open( osc_admin_base_url(true) .'?page=settings&action=spamNbots' );
         $this->type('recaptchaPubKey', '6Lc5PsQSAAAAAEWQYBh5X7pepBL1FuYvdhEFTk0v') ;
         $this->type('recaptchaPrivKey' , '6Lc5PsQSAAAAADnbAmtxG_kfwIxPikL-mjSMyv22');
@@ -574,6 +571,7 @@ class TestAdminItem extends OsclassTestAdmin
         $this->type('recaptchaPrivKey' , '');
         $this->click("//input[@id='submit_recaptcha']");
         $this->waitForPageToLoad("10000");
+        $this->_logOutWebsite();
     }
 
     private function _checkWebsite_moderate_items($moderation, $user = 1)
@@ -582,6 +580,7 @@ class TestAdminItem extends OsclassTestAdmin
         $this->_addUserForTesting();
         // loginWebsite
         $this->_loginWebsite();
+        //$this->_login(TEST_USER_EMAIL, TEST_USER_PASS);
 
         $this->_post_item_website(true);
         if($moderation == -1) {
@@ -596,7 +595,7 @@ class TestAdminItem extends OsclassTestAdmin
 
         $this->_post_item_website(true);
         if($moderation == -1 || $moderation == 1) {
-            $this->assertTrue($this->isTextPresent("Your listing has been published"),"Item need validation moderate_items = -1 (NEVER MODERATE). ERROR" );
+            $this->assertTrue($this->isTextPresent("Your listing has been published"),"Item need validation moderate_items = -1 (".$moderation.") (NEVER MODERATE). ERROR" );
         } else if($moderation == 0) {
             $this->assertTrue($this->isTextPresent("Check your inbox to validate your listing"),"Need validation but message don't appear" );
         }
