@@ -135,7 +135,7 @@ class TestUser extends OsclassTestFrontend
         $this->waitForPageToLoad("30000");
 
         // INVALID USERNAME
-        $this->type("id=s_username", "admin");
+        $this->type("id=s_username", "admin1");
         $this->click("//button[@type='submit']");
         $this->waitForPageToLoad("30000");
         $this->assertEquals("xThe specified username is not valid, it contains some invalid words", $this->getText("id=flashmessage"));
