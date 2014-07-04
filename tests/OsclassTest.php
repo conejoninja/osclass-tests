@@ -25,6 +25,19 @@ class OsclassTest extends PHPUnit_Extensions_SeleniumTestCase
         return $aItem[0]['pk_i_id'];
     }
 
+    protected function takeScreenshot()
+    {
+        if (!empty($this->screenshotPath) &&
+            !empty($this->screenshotUrl)) {
+            $filename = $this->getScreenshotPath() . $this->testId . '.png';
 
+            $this->drivers[0]->captureEntirePageScreenshot($filename, "background=#FFFFFF");
+
+            return 'Screenshot: ' . $this->screenshotUrl . '/' .
+            $this->testId . ".png\n";
+        } else {
+            return '';
+        }
+    }
 
 }
