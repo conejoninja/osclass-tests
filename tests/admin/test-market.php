@@ -55,7 +55,7 @@ class TestAdminMarket extends OsclassTestAdmin
         $this->click("//a[@id='market_view_plugins']");
         $this->waitForPageToLoad("10000");
 
-        $this->click("//div[@class='mk-item mk-item-plugin']/div/div/span[@class='download-btn']");
+        $this->click("//div[@class='mk-item mk-item-plugin']/div/div/span[contains(@class,'download-btn')]");
         sleep(2);
         $textIsPresent = false;
         for($t=0;$t<120;$t++) {
