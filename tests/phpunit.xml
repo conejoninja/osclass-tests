@@ -155,6 +155,14 @@
             <file>admin/test-tools.php</file>
         </testsuite>
 
+        <testsuite name="adm-perm-on">
+            <file>admin/test-perm-on.php</file>
+        </testsuite>
+
+        <testsuite name="adm-perm-off">
+            <file>admin/test-perm-on.php</file>
+        </testsuite>
+
     </testsuites>
 
 </phpunit>
