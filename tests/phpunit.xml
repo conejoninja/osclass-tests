@@ -7,11 +7,23 @@
             <file>installer/test-installer.php</file>
             <file>installer/test-clean.php</file>
 
+            <file>admin/test-perm-off.php</file>
+
             <file>frontend/test-user.php</file>
             <file>frontend/test-contact.php</file>
             <file>frontend/test-page.php</file>
             <file>frontend/test-items.php</file>
             <file>frontend/test-search.php</file>
+
+            <file>admin/test-perm-on.php</file>
+
+            <file>frontend/test-user.php</file>
+            <file>frontend/test-contact.php</file>
+            <file>frontend/test-page.php</file>
+            <file>frontend/test-items.php</file>
+            <file>frontend/test-search.php</file>
+
+            <file>admin/test-perm-off.php</file>
 
             <file>admin/test-page.php</file>
             <file>admin/test-users.php</file>
@@ -45,11 +57,23 @@
         </testsuite>
 
         <testsuite name="frontend">
+            <file>admin/test-perm-off.php</file>
+
             <file>frontend/test-user.php</file>
             <file>frontend/test-contact.php</file>
             <file>frontend/test-page.php</file>
             <file>frontend/test-items.php</file>
             <file>frontend/test-search.php</file>
+
+            <file>admin/test-perm-on.php</file>
+
+            <file>frontend/test-user.php</file>
+            <file>frontend/test-contact.php</file>
+            <file>frontend/test-page.php</file>
+            <file>frontend/test-items.php</file>
+            <file>frontend/test-search.php</file>
+
+            <file>admin/test-perm-off.php</file>
         </testsuite>
 
         <testsuite name="fe-user">
