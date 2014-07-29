@@ -160,7 +160,7 @@
         </testsuite>
 
         <testsuite name="adm-perm-off">
-            <file>admin/test-perm-on.php</file>
+            <file>admin/test-perm-off.php</file>
         </testsuite>
 
     </testsuites>
