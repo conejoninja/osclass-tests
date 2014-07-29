@@ -15,7 +15,7 @@ class TestAdminPermOff extends OsclassTestAdmin
             $this->click("rewrite_enabled");
             $this->click("//input[@type='submit']");
             $this->waitForPageToLoad("30000");
-            $this->assertTrue( $this->isTextPresent("Permalinks structure updated") , "Disable permalinks" );
+            $this->assertTrue( $this->isTextPresent("Friendly URLs successfully deactivated") , "Disable permalinks" );
         }
 
         osc_reset_preferences();
